@@ -5,12 +5,11 @@ import userRoutes from "./routes/user.route.js";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./docs/swagger.js";
-import { authenticateUser } from './middlewares/auth.middleware.js'; 
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 4001;
+const port = process.env.PORT || 7001;
 
 // Connect to MongoDB
 mongoose
@@ -26,7 +25,6 @@ app.use(express.json());
 app.use('/auth', userRoutes);
 // Swagger documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); // Serve Swagger UI
-app.use(authenticateUser);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
