@@ -61,58 +61,92 @@
                     }
                 }
             }
+        },
+        "/login": {
+      "post": {
+        "summary": "Login user",
+        "description": "Authenticate and login user",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            },
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful login"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
         }
+      }
+    }
     },
     "definitions": {
-        "User": {
-            "type": "object",
-            "properties": {
-                "FirstName": {
-                    "type": "string"
-                },
-                "LastName": {
-                    "type": "string"
-                },
-                "Email": {
-                    "type": "string"
-                },
-                "Password": {
-                    "type": "string"
-                },
-                "ConfirmPassword": {
-                    "type": "string"
-                },
-                "otp": {
-                    "type": "number"
-                },
-                "otpExpiration": {
-                    "type": "string"
-                },
-                "otpVerified": {
-                    "type": "boolean",
-                    "default": false
-                }
-            },
-            "required": [
-                "FirstName",
-                "LastName",
-                "Email",
-                "Password",
-                "ConfirmPassword"
-            ]
+      "User": {
+        "type": "object",
+        "properties": {
+          "FirstName": {
+            "type": "string"
+          },
+          "LastName": {
+            "type": "string"
+          },
+          "Email": {
+            "type": "string"
+          },
+          "Password": {
+            "type": "string"
+          },
+          "ConfirmPassword": {
+            "type": "string"
+          },
+          "otp": {
+            "type": "number"
+          },
+          "otpExpiration": {
+            "type": "string"
+          },
+          "otpVerified": {
+            "type": "boolean",
+            "default": false
+          }
         },
-        "Otp": {
-            "type": "object",
-            "properties": {
-                "otp": {
-                    "type": "number"
-                } 
-    },
-    "required": [
-        "otp"
-    ]
-
-        }
-        
+        "required": [
+          "FirstName",
+          "LastName",
+          "Email",
+          "Password",
+          "ConfirmPassword"
+        ]
+      },
+      "Otp": {
+        "type": "object",
+        "properties": {
+          "otp": {
+            "type": "number"
+          }
+        },
+        "required": ["otp"]
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["email", "password"]
+      }
     }
 }

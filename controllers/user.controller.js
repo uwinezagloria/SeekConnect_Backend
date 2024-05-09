@@ -2,11 +2,10 @@ import userModel from "../models/user.models.js";
 import asyncWrapper from "../middlewares/async.js";
 import { validationResult } from "express-validator";
 import customError from "../middlewares/customError.js";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import otpGenerator from "../utils/otp.js";
-import { sendEmail
-
- } from "../utils/sendemail.js";
+import { sendEmail } from "../utils/sendemail.js";
 //registration
 export const signUp=asyncWrapper(async(req,res,next)=>{
     
@@ -87,4 +86,48 @@ return next(new customError("otp expired",404))
     res.status(500).json({message:error.message})
 }
 })
-//login controller
+// export const login = asyncWrapper(async (req, res, next) => {
+//   const { email, password } = req.body;
+
+//   // Check if the user exists
+//   const user = await userModel.findOne({ Email: email });
+//   if (!user) {
+//     return next(new customError("Invalid credentials", 401));
+//   }
+
+//   // Check if the password matches
+//   const isPasswordValid = await bcrypt.compare(password, user.Password);
+//   if (!isPasswordValid) {
+//     return next(new customError("Invalid credentials", 401));
+//   }
+
+//   // Generate JWT token
+//   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+//     expiresIn: "1h",
+//   });
+
+//   res.status(200).json({ token });
+// });
+
+export const login = asyncWrapper(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // Check if the user exists
+  const user = await userModel.findOne({ Email: email });
+  if (!user) {
+    return next(new customError("Invalid credentials", 401));
+  }
+
+  // Check if the password matches
+  const isPasswordValid = await bcrypt.compare(password, user.Password);
+  if (!isPasswordValid) {
+    return next(new customError("Invalid credentials", 401));
+  }
+
+  // Generate JWT token
+  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+    expiresIn: "1h",
+  });
+
+  res.status(200).json({ token });
+});
