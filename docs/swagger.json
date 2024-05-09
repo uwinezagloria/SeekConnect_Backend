@@ -5,7 +5,7 @@
         "description": "API documentation for SeekConnect with all  CRUD operations",
         "version": "1.0.0"
     },
-    "host": "localhost:3000",
+    "host": "localhost:7001",
     "basePath": "",
     "schemes": [
         "http",
@@ -49,7 +49,7 @@
                         "in": "body",
                         "name": "body",
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/Otp"
                         },
                         "required": true,
                         "description": "User object"
@@ -62,45 +62,57 @@
                 }
             }
         }
-    }
-,
-"definitions": {
-    "User": {
-        "type": "object",
-        "properties": {
-            "FirstName": {
-                "type": "string"
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "properties": {
+                "FirstName": {
+                    "type": "string"
+                },
+                "LastName": {
+                    "type": "string"
+                },
+                "Email": {
+                    "type": "string"
+                },
+                "Password": {
+                    "type": "string"
+                },
+                "ConfirmPassword": {
+                    "type": "string"
+                },
+                "otp": {
+                    "type": "number"
+                },
+                "otpExpiration": {
+                    "type": "string"
+                },
+                "otpVerified": {
+                    "type": "boolean",
+                    "default": false
+                }
             },
-            "LastName": {
-                "type": "string"
-            },
-            "Email": {
-                "type": "string"
-            },
-            "Password": {
-                "type": "string"
-            },
-            "ConfirmPassword": {
-                "type": "string"
-            },
-            "otp": {
-                "type": "number"
-            },
-            "otpExpiration": {
-                "type": "string"
-            },
-            "otpVerified": {
-                "type": "boolean",
-                "default": false
-            }
+            "required": [
+                "FirstName",
+                "LastName",
+                "Email",
+                "Password",
+                "ConfirmPassword"
+            ]
         },
-        "required": [
-            "FirstName",
-            "LastName",
-            "Email",
-            "Password",
-            "ConfirmPassword"
-        ]
+        "Otp": {
+            "type": "object",
+            "properties": {
+                "otp": {
+                    "type": "number"
+                } 
+    },
+    "required": [
+        "otp"
+    ]
+
+        }
+        
     }
-}
 }
