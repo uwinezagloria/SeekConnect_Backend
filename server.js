@@ -1,4 +1,4 @@
-import express, { Router } from "express"
+import express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 import { errorHandler } from "./middlewares/errorHandler.js"
