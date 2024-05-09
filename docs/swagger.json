@@ -1,0 +1,106 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "SeekConnect Api",
+        "description": "API documentation for SeekConnect with all  CRUD operations",
+        "version": "1.0.0"
+    },
+    "host": "localhost:3000",
+    "basePath": "",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/signUp": {
+            "post": {
+                "summary": "Create account ",
+                "description": "Create a new account on SeekConnect ",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        },
+                        "required": true,
+                        "description": "User object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account created successfully"
+                    }
+                }
+            }
+        },
+        "/otp-verify": {
+            "post": {
+                "summary": "verify account ",
+                "description": "verify your  account on SeekConnect ",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        },
+                        "required": true,
+                        "description": "User object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account verified successfully"
+                    }
+                }
+            }
+        }
+    }
+,
+"definitions": {
+    "User": {
+        "type": "object",
+        "properties": {
+            "FirstName": {
+                "type": "string"
+            },
+            "LastName": {
+                "type": "string"
+            },
+            "Email": {
+                "type": "string"
+            },
+            "Password": {
+                "type": "string"
+            },
+            "ConfirmPassword": {
+                "type": "string"
+            },
+            "otp": {
+                "type": "number"
+            },
+            "otpExpiration": {
+                "type": "string"
+            },
+            "otpVerified": {
+                "type": "boolean",
+                "default": false
+            }
+        },
+        "required": [
+            "FirstName",
+            "LastName",
+            "Email",
+            "Password",
+            "ConfirmPassword"
+        ]
+    }
+}
+}
