@@ -1,6 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
+import cors from "cors"
 import { errorHandler } from "./middlewares/errorHandler.js"
 import router from "./routes/user.route.js"
 import swagger from "./docs/swagger.json" assert{type:"json"}
@@ -9,6 +10,7 @@ const app=express()
 dotenv.config()
 //middlewares
 app.use(express.json())
+app.use(cors())
 app.use("/api/v1/SeekConnect",swaggerUi.serve, swaggerUi.setup(swagger))
 //routes
 app.use(router)
@@ -26,3 +28,6 @@ mongoose.connect(process.env.MONGODB_URI)
 })
 // errorHandler middleware
  app.use(errorHandler)
+ app.use("/",(req,res)=>{
+    res.send("Server running")
+ })
