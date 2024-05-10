@@ -145,7 +145,7 @@ if(!error.isEmpty()){
         }
 //check if new password equal to confirm new password
 if(req.body.Password!==req.body.ConfirmPassword){
-    return next(new customError("Invalid password"))
+    return next(new customError("Invalid password",403))
 }
 //hash new password
 const hashedPassword=await bcrypt.hash(req.body.Password,10)
