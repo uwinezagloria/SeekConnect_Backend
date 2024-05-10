@@ -8,4 +8,16 @@ export const signUpValidation=[
     body("Password","password is required").not().isEmpty(),
     body("Password"," provide strong password ").isStrongPassword(),
     body("ConfirmPassword"," retype password ").not().isEmpty(),
-] 
+] ;
+export const loginValidation=[
+    body("Email","Email is required").not().isEmpty(),
+    body("Email","Invalid Email").isEmail(),
+    body("Password","password is required").not().isEmpty()
+]
+export const forgotPasswordValidation=[
+    body("Email","Email is required").not().isEmpty(), 
+    body("Email","Invalid Email").isEmail(),
+    body("Password","password is required").not().isEmpty(),
+    body("Password"," provide strong password ").isStrongPassword(),
+    body("ConfirmPassword"," retype password ").not().isEmpty()
+]

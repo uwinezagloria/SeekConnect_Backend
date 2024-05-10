@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema({
         type: String
     },
    Email:{
-    type:String
+    type:String,
+    unique:[true,"invalid email"]
    },
    Password:{
     type:String
@@ -24,7 +25,13 @@ type:String
    otpVerified:{
     type:Boolean,
     default:false
-   }
+   },
+//    resertToken:{
+//       type:String
+//    },
+//    resertTokenExpires:{
+// type:Date
+//    }
 })
 const userModel=mongoose.model("SignUp",userSchema)
 export default userModel

@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import otpGenerator from "../utils/otp.js";
 import { sendEmail } from "../utils/sendemail.js";
+import { generateRandomToken } from "../utils/randomToken.js";
 //registration
 export const signUp=asyncWrapper(async(req,res,next)=>{
     
@@ -86,48 +87,78 @@ return next(new customError("otp expired",404))
     res.status(500).json({message:error.message})
 }
 })
-// export const login = asyncWrapper(async (req, res, next) => {
-//   const { email, password } = req.body;
-
-//   // Check if the user exists
-//   const user = await userModel.findOne({ Email: email });
-//   if (!user) {
-//     return next(new customError("Invalid credentials", 401));
-//   }
-
-//   // Check if the password matches
-//   const isPasswordValid = await bcrypt.compare(password, user.Password);
-//   if (!isPasswordValid) {
-//     return next(new customError("Invalid credentials", 401));
-//   }
-
-//   // Generate JWT token
-//   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-//     expiresIn: "1h",
-//   });
-
-//   res.status(200).json({ token });
-// });
-
 export const login = asyncWrapper(async (req, res, next) => {
-  const { email, password } = req.body;
+  try{
+    //validate
+    const error=validationResult(req)
+if(!error.isEmpty()){
+    return next(new customError(error.array()[0].msg,401))
+}
+      //check if user provide email and password
+      const email=req.body.Email
+      const password=req.body.Password
+      if(!email || !password){
+        return next(new customError("invalid email or password",401))
+      }
+      // Check if the user exists
+      const user = await userModel.findOne({ Email: req.body.Email});
+      if (!user) {
+          return next(new customError("Invalid credentials", 404));
+        }
+        //check if user verify  otp
+        if(user.otpVerified===false){
+            return next(new customError("verify your account",401))
+        }
 
-  // Check if the user exists
-  const user = await userModel.findOne({ Email: email });
-  if (!user) {
-    return next(new customError("Invalid credentials", 401));
-  }
+        // Check if the password matches
+        const isPasswordValid = await bcrypt.compare(req.body.Password, user.Password);
+        if (!isPasswordValid) {
+            return next(new customError("Invalid credentials", 401));
+        }
+        
+        // Generate JWT token
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+            expiresIn: "1h",
+        });
+        
+        res.status(200).json({
+            message:"user login successfully",
+            token: token });
+    }
+    catch(error){
+        console.log(error.message)
+    }
+    });
+//reseting new password when you forgot it
+ export const resertNewPassword=asyncWrapper(async(req,res,next)=>{
+    try{
+        //validate
+        const error=validationResult(req)
+        if(!error.isEmpty()){
+            return next(new customError("Bad Request",403))
+        }
+        console.log("hy")
+        //get user with provided email
+        const findUser=await userModel.find({Email:req.body.Email})
+        if(!findUser){
+            return next(new customError("user not found",404))
+        }
+//check if new password equal to confirm new password
+if(req.body.Password!==req.body.ConfirmPassword){
+    return next(new customError("Invalid password"))
+}
+//hash new password
+const hashedPassword=await bcrypt.hash(req.body.Password,10)
+//change password stored in database to new password
+const update=await userModel.findOneAndUpdate({Email:req.body.Email},{Password:hashedPassword},{new:true})
+if(!update){
+return res.status(500).json({message:"something went wrong,please try again!"})
+}
 
-  // Check if the password matches
-  const isPasswordValid = await bcrypt.compare(password, user.Password);
-  if (!isPasswordValid) {
-    return next(new customError("Invalid credentials", 401));
-  }
-
-  // Generate JWT token
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
-
-  res.status(200).json({ token });
-});
+res.status(200).json({message:"Password resert successfully"})
+console.log(req.body.Password)
+    }
+    catch(error){
+        console.log(error.message)
+    }
+})
