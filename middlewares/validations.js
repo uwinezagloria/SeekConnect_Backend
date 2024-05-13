@@ -29,7 +29,6 @@ export const lostDocumentValidation=[
     body("NameOnDocument","name on lost document is required").not().isEmpty(),
     body("PlaceOfIssueOnDocument","placeo of issue for  lost document is required").not().isEmpty(),
     body("LostDate","date  is required").not().isEmpty(),
-    body("LostPlace","place  is required").not().isEmpty(),
 ]
 //validate missingPerson
 export const missingPerson=[

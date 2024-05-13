@@ -18,7 +18,7 @@ Race:{
     CountryOfOrigin:{
         type:String
     },
-    Accent:{
+    Age:{
         type:string
     },
    Photo: {

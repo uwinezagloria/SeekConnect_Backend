@@ -118,6 +118,121 @@
           }
         }
       }
+    },
+    "/lost": {
+      "post": {
+        "summary": "Post A lost Document",
+        "description": " post your lost document",
+        "tags": [
+          "Document"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/LostDocument"
+            },
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful  posted a lost document"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      },
+      "patch": {
+        "summary": "update A lost Document",
+        "description": " update  lost document",
+        "tags": [
+          "Document"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "$ref": "#/definitions/LostDocument"
+            },
+            "required": true,
+            "description": "User credentials"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/LostDocument"
+            },
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful  updated a lost document"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete lost Document",
+        "description": " delete   lost document",
+        "tags": [
+          "Document"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "$ref": "#/definitions/LostDocument"
+            },
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful  removed lost documents"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      },
+      "get": {
+        "summary": "get lost Documents",
+        "description": " get all  lost documents",
+        "tags": [
+          "Document"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/LostDocument"
+            },
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful  got  lost documents"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -204,17 +319,78 @@
         "ConfirmPassword"
       ]
     },
-    
-    "place": {
+    "LostDocument": {
+      "type": "object",
+      "properties": {
+        "UserId": {
+          "type": "string"
+        },
+        "DocumentType": {
+          "type": "string",
+          "enum":["Drivers License","National Id Card","Health Insurance Card","Refugee Identity Document","Othe Form Of Identity"]
+        },
+        "NameOnDocument": {
+          "type": "string"
+        },
+        "PlaceOfIssueOnDocument":{
+          "type":"string"
+        },
+        "LostDate":{
+          "type":"string",
+          "format":"date"
+        },
+        "LostPlace":{
+     "$ref":"#definitions/Place"
+        },
+        "Comment":{
+          "type":"string"
+        },
+        "Found":{
+          "type":"boolean",
+          "default":false
+        }
+      },
+      "required": [
+        "UserId",
+        "DocumentType",
+        "NameOnDocument",
+       " PlaceOfIssueOnDocument",
+       "LostDate",
+       "LostPlace"
+      ]
+     
+    },
+
+    "Place": {
       "type": "object",
       "properties": {
         "Country": {
           "type": "string"
         },
+        "Province": {
+          "type": "string"
+        },
         "District": {
           "type": "string"
+        },
+        "Sector": {
+          "type": "string"
+        },
+        "Cell": {
+          "type": "string"
+        },
+        "Village": {
+          "type": "string"
         }
-      }
+      },
+      "required":[
+        "Country",
+        "Province",
+        "District",
+        "Sector",
+        "Cell",
+        "Village"
+      ]
     }
   }
 }
