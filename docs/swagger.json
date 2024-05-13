@@ -211,18 +211,13 @@
         "Country": {
           "type": "string"
         },
-        "Province": {
+        "District": {
           "type": "string"
         },
         "District": {
           "type": "string"
         }
-      },
-      "required": [
-        "Country",
-        "Province",
-        "District"
-      ]
+      }
     }
   }
 }
