@@ -203,6 +203,26 @@
         "Password",
         "ConfirmPassword"
       ]
+    },
+    
+    "place": {
+      "type": "object",
+      "properties": {
+        "Country": {
+          "type": "string"
+        },
+        "Province": {
+          "type": "string"
+        },
+        "District": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Country",
+        "Province",
+        "District"
+      ]
     }
   }
 }
