@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 import mongoose from "mongoose"
 import cors from "cors"
 import { errorHandler } from "./middlewares/errorHandler.js"
-import router from "./routes/user.route.js"
+import router from "./routes/index.route.js"
 import swagger from "./docs/swagger.json" assert{type:"json"}
 import swaggerUi from "swagger-ui-express"
 const app=express()
@@ -28,6 +28,4 @@ mongoose.connect(process.env.MONGODB_URI)
 })
 // errorHandler middleware
  app.use(errorHandler)
- app.use("/",(req,res)=>{
-    res.send("Server running")
- })
+
