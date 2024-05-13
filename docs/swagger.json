@@ -118,61 +118,8 @@
           }
         }
       }
-    },
-    "/lost": {
-      "post": {
-        "summary": "post a lost document",
-        "description": "create lost document",
-        "tags": [
-          "Lost"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/Lost"
-            },
-            "required": true,
-            "description": "User credentials"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful posted a Lost"
-          },
-          "401": {
-            "description": "Invalid credentials"
-          }
-  }
+    }
   },
-  "patch": {
-    "summary": "update a lost document",
-    "description": "update lost document",
-    "tags": [
-      "Lost"
-    ],
-    "parameters": [
-      {
-        "in": "body",
-        "name": "body",
-        "schema": {
-          "$ref": "#/definitions/Lost"
-        },
-        "required": true,
-        "description": "User credentials"
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Successful posted a Lost"
-      },
-      "401": {
-        "description": "Invalid credentials"
-      }
-}
-}
-},
   "definitions": {
     "User": {
       "type": "object",
@@ -256,77 +203,6 @@
         "Password",
         "ConfirmPassword"
       ]
-    },
-    "LostDocument": {
-      "type": "object",
-      "properties": {
-        "UserId": {
-          "type": "string"
-        },
-        "DocumentType": {
-          "type": "string",
-          "enum":["Drivers License","National Id Card","Health Insurance Card","Refugee Identity Document","Othe Form Of Identity"]
-        },
-        "NameOnDocument": {
-          "type": "string"
-        },
-        "PlaceOfIssueOnDocument":{
-          "type":"string"
-        },
-        "LostDate":{
-          "type":"date"
-        },
-        "LostPlace":{
-          "$ref":"#/definitions/place"
-        },
-        "Comment":{
-          "type":"string"
-        },
-        "found":{
-          "type":"boolean",
-          "default":false
-        }
-      },
-      "required": [
-        "UserId",
-        "DocumentType",
-        "NameOnDocument",
-       "PlaceOfIssueOnDocument",
-       "LostDate",
-       "LostPlace"
-      ]
-    },
-    "place": {
-      "type": "object",
-      "properties": {
-        "Country": {
-          "type": "string"
-        },
-        "Province": {
-          "type": "string"
-        },
-        "District": {
-          "type": "string"
-        },
-        "Sector": {
-          "type": "string"
-        },
-        "Cell": {
-          "type": "string"
-        },
-        "Village": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "Country",
-        "Province",
-        "District",
-        "Sector",
-        "Cell",
-        "Village"
-      ]
     }
   }
-}
 }
