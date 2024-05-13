@@ -11,6 +11,6 @@ router.route("/resetPassword").post(forgotPasswordValidation,resertNewPassword)
 //LostDocument route
 router.route("/lost").post(lostDocumentValidation,createLostDocument)
 router.route("/lost").get(getLostDocuments)
-router.route("/lost").get(updateLostDocument)
+router.route("/lost").patch(updateLostDocument)
 router.route("/lost").delete(deleteLostDocument)
 export default router 

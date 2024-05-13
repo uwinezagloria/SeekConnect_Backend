@@ -16,32 +16,38 @@ PlaceOfIssueOnDocument:{
     type:String
 },
 LostDate:{
-    type:Date
+    type:String
 },
 LostPlace:{
    Country: {
-type:String
+type:String,
+required:[true,"country is required"]
     },
     Province:{
-        type:String
+        type:String,
+        required:[true,"Province is required"]
     },
     District:{
-        type:String
+        type:String,
+        required:[true,"District is required"]
     },
     Sector:{
-        type:String
+        type:String,
+        required:[true,"sector is required"]
     },
     Cell:{
-        type:String
+        type:String,
+        required:[true,"cell is required"]
     }, 
     Village:{
-        type:String
+        type:String,
+        required:[true,"village is required"]
     }
 },
 Comment:{
 type:String
 },
-found:{
+Found:{
     type:Boolean,
     default:false
 }
