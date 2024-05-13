@@ -180,8 +180,8 @@
         }
       },
       "required": [
-        "email",
-        "password"
+        "Email",
+        "Password"
       ]
     },
     
@@ -209,9 +209,6 @@
       "type": "object",
       "properties": {
         "Country": {
-          "type": "string"
-        },
-        "District": {
           "type": "string"
         },
         "District": {
