@@ -89,6 +89,7 @@ return next(new customError("otp expired",404))
 })
 export const login = asyncWrapper(async (req, res, next) => {
   try{
+
     //validate
     const error=validationResult(req)
 if(!error.isEmpty()){
@@ -137,7 +138,7 @@ if(!error.isEmpty()){
         if(!error.isEmpty()){
             return next(new customError("Bad Request",403))
         }
-        console.log("hy")
+        
         //get user with provided email
         const findUser=await userModel.find({Email:req.body.Email})
         if(!findUser){
