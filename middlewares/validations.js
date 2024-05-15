@@ -31,14 +31,13 @@ export const lostDocumentValidation=[
     body("LostDate","date  is required").not().isEmpty(),
 ]
 //validate missingPerson
-export const missingPerson=[
+export const missingPersonValidation=[
     body("FirstName","First name is required").not().isEmpty(),
     body("LastName","Last name is required").not().isEmpty(),
     body("Race","race  is required").not().isEmpty(),
     body("CountryOfOrigin","Country Of Origin is required").not().isEmpty(),
-    body("Photo","photo  is required").not().isEmpty(),
     body("LostDate","LostDate  is required").not().isEmpty(),
-    body("LostPlace","LostPlace  is required").not().isEmpty(),
+    
 ]
 //Validate found lost document
 export const foundDocumentValidation=[
@@ -49,7 +48,7 @@ body("FoundDate"," found date  is required").not().isEmpty(),
 body("FoundPlace","place  is required").not().isEmpty(),
 ]
 //validate found missing person
-export const foundMissingPerson=[
+export const foundMissingPersonValidation=[
     body("FirstName","First name is required").not().isEmpty(),
     body("LastName","Last name is required").not().isEmpty(),
     body("Race","race  is required").not().isEmpty(),
@@ -57,4 +56,11 @@ export const foundMissingPerson=[
     body("Photo","photo  is required").not().isEmpty(),
     body("FoundDate","Found Date  is required").not().isEmpty(),
     body("FoundPlace","Place  is required").not().isEmpty(),
+]
+// validate contactUs
+export const contactUsValidation=[
+    body("Name","name is required").not().isEmpty(),
+    body("Email","Email is required").not().isEmpty(),
+    body("Email","Email is invalid").isEmail(),
+    body("Message","message is required").not().isEmpty(), 
 ]
