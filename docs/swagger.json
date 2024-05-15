@@ -2,16 +2,150 @@
   "swagger": "2.0",
   "info": {
     "title": "SeekConnect Api",
-    "description": "API documentation for SeekConnect with all  CRUD operations",
+    "description": "API documentation for SeekConnect ",
     "version": "1.0.0"
   },
-  "host":"seekconnect-backend-1.onrender.com",
+  "host": "seekconnect-backend-1.onrender.com",
   "basePath": "",
   "schemes": [
     "https",
     "http"
   ],
   "paths": {
+    "/contactUs": {
+      "post": {
+        "summary": "Add  a countact Us ",
+        "description": "Add  a countact Us",
+        "tags": [
+          "ContactUs"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ContactUs"
+            },
+            "required": true,
+            "description": "contactUs object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "contact us recorded successfully"
+          }
+        }
+      },
+      "get": {
+        "summary": "get  countact Us ",
+        "description": "get all   countacted Us",
+        "tags": [
+          "ContactUs"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ContactUs"
+            },
+            "required": true,
+            "description": "contactUs object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "contact us  successfully"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update  countact Us ",
+        "description": "update   countacted Us",
+        "tags": [
+          "ContactUs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "$ref": "#/definitions/ContactUs"
+            },
+            "required": true,
+            "description": "contactUs object"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ContactUs"
+            },
+            "required": true,
+            "description": "contactUs object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "contact us updated  successfully"
+          }
+        }
+      },
+      "delete": {
+        "summary": "remove  countact Us ",
+        "description": "remove   countacted Us",
+        "tags": [
+          "ContactUs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "$ref": "#/definitions/ContactUs"
+            },
+            "required": true,
+            "description": "contactUs object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "contact us updated  successfully"
+          }
+        }
+      }
+    },
+    "/contactUs/email": {
+      "get": {
+        "summary": "get  a countact Us  by email",
+        "description": "get   a countact Us for a provided email",
+        "tags": [
+          "ContactUs"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "schema": {
+              "$ref": "#/definitions/ContactUs"
+            },
+            "required": true,
+            "description": "contactUs object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "contact us recorded successfully"
+          }
+        }
+      }},
+
+
+
+
+
+
+
     "/signUp": {
       "post": {
         "summary": "Create account ",
@@ -42,7 +176,7 @@
         "summary": "verify account ",
         "description": "verify your  account on SeekConnect ",
         "tags": [
-          "User"
+          "verification"
         ],
         "parameters": [
           {
@@ -89,14 +223,13 @@
           }
         }
       }
-
-        },
+    },
     "/resetPassword": {
       "post": {
         "summary": "Reset Password",
         "description": " user reset new Password ",
         "tags": [
-          "User"
+          "resetPassword"
         ],
         "parameters": [
           {
@@ -124,7 +257,7 @@
         "summary": "Post A lost Document",
         "description": " post your lost document",
         "tags": [
-          "Document"
+          "LostDocument"
         ],
         "parameters": [
           {
@@ -150,7 +283,7 @@
         "summary": "update A lost Document",
         "description": " update  lost document",
         "tags": [
-          "Document"
+          "LostDocument"
         ],
         "parameters": [
           {
@@ -185,7 +318,7 @@
         "summary": "delete lost Document",
         "description": " delete   lost document",
         "tags": [
-          "Document"
+          "LostDocument"
         ],
         "parameters": [
           {
@@ -211,7 +344,7 @@
         "summary": "get lost Documents",
         "description": " get all  lost documents",
         "tags": [
-          "Document"
+          "LostDocument"
         ],
         "parameters": [
           {
@@ -299,7 +432,6 @@
         "Password"
       ]
     },
-    
     "ResetPassword": {
       "type": "object",
       "properties": {
@@ -327,40 +459,44 @@
         },
         "DocumentType": {
           "type": "string",
-          "enum":["Drivers License","National Id Card","Health Insurance Card","Refugee Identity Document","Othe Form Of Identity"]
+          "enum": [
+            "Drivers License",
+            "National Id Card",
+            "Health Insurance Card",
+            "Refugee Identity Document",
+            "Othe Form Of Identity"
+          ]
         },
         "NameOnDocument": {
           "type": "string"
         },
-        "PlaceOfIssueOnDocument":{
-          "type":"string"
+        "PlaceOfIssueOnDocument": {
+          "type": "string"
         },
-        "LostDate":{
-          "type":"string",
-          "format":"date"
+        "LostDate": {
+          "type": "string",
+          "format": "date"
         },
-        "LostPlace":{
-     "$ref":"#definitions/Place"
+        "LostPlace": {
+          "$ref": "#definitions/Place"
         },
-        "Comment":{
-          "type":"string"
+        "Comment": {
+          "type": "string"
         },
-        "Found":{
-          "type":"boolean",
-          "default":false
+        "Found": {
+          "type": "boolean",
+          "default": false
         }
       },
       "required": [
         "UserId",
         "DocumentType",
         "NameOnDocument",
-       " PlaceOfIssueOnDocument",
-       "LostDate",
-       "LostPlace"
+        " PlaceOfIssueOnDocument",
+        "LostDate",
+        "LostPlace"
       ]
-     
     },
-
     "Place": {
       "type": "object",
       "properties": {
@@ -383,13 +519,36 @@
           "type": "string"
         }
       },
-      "required":[
+      "required": [
         "Country",
         "Province",
         "District",
         "Sector",
         "Cell",
         "Village"
+      ]
+    },
+    "ContactUs": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Tel":{
+        "type":"string"
+        },
+        "Message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Name",
+        "Email",
+        "Tel",
+        "Message"
       ]
     }
   }
