@@ -3,7 +3,6 @@ import { contactUsValidation, forgotPasswordValidation, loginValidation, lostDoc
 import { signUp, verifyOtp, login, resertNewPassword} from "../controllers/user.controller.js"
 import { createLostDocument, deleteLostDocument, getLostDocuments, updateLostDocument } from "../controllers/lostDocumentController.js"
 import { getMissingPeople, postMissingPerson, removeMissingPerson, updateMissingPerson } from "../controllers/missingPersonController.js"
-import upload from "../middlewares/files.js"
 import { createContactUs, deleteContactUs, getContact, getContactUs, updateContactUs } from "../controllers/contactUs.controller.js"
 const router=express.Router()
 //signUp && signIn route
