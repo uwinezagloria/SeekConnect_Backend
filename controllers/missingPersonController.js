@@ -3,6 +3,7 @@ import asyncWrapper from "../middlewares/async.js";
 import missingPersonModel from "../models/missingPerson.models.js";
 import customError from "../middlewares/customError.js"
 import { validationResult } from "express-validator";
+import cloudinary from "../utils/cloudinary.js";
 //POST A MISSING PERSON
 export const postMissingPerson=asyncWrapper(async(req,res,next)=>{
     //validate
@@ -11,7 +12,9 @@ export const postMissingPerson=asyncWrapper(async(req,res,next)=>{
         return next(new customError(errors.array()[0].msg,403))
     }
     //create post for missing person
-    console.log(req.file)
+    const result=await cloudinary.uploader.upload(Photo,{
+        folder:images
+    })
     const newPerson = new missingPersonModel({
       UserId: req.body.UserId,
       FirstName: req.body.FirstName,
@@ -19,7 +22,10 @@ export const postMissingPerson=asyncWrapper(async(req,res,next)=>{
       Race: req.body.Race,
       CountryOfOrigin: req.body.CountryOfOrigin,
       Age: req.body.Age,
-      Photo: req.file ? req.file.path : "./uploads", 
+      Photo: {
+public_id:result.public_id,
+url:result.secure_url
+      },
       LostDate: req.body.LostDate,
       Country: req.body.LostPlace.Country,
       District: req.body.LostPlace.District,

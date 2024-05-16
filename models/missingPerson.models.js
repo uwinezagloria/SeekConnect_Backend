@@ -22,7 +22,12 @@ const personSchema = new mongoose.Schema({
         type: String
     },
     Photo: {
-        type: String
+        public_id:{
+            type:String
+        },
+        url:{
+            type:String
+        }
     },
     LostDate: {
         type: Date
