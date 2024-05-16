@@ -12,23 +12,23 @@ export const postMissingPerson=asyncWrapper(async(req,res,next)=>{
     }
     //create post for missing person
     console.log(req.file)
-    const newPerson=new missingPersonModel({
-        UserId:req.body.UserId,
-        FirstName:req.body.FirstName,
-        LastName:req.body.LastName,
-        Race:req.body.Race,
-        CountryOfOrigin:req.body.CountryOfOrigin,
-        Age:req.body.Age,
-        Photo:req.file.filename,
-        LostDate:req.body.LostDate,
-        Country:req.body.LostPlace.Country,
-        District:req.body.LostPlace.District,
-        Sector:req.body.LostPlace.Sector,
-        Cell:req.body.Cell,
-        Village:req.body.Village,
-        comment:req.body.Comment,
-        Found:req.body.Found
-    })
+    const newPerson = new missingPersonModel({
+      UserId: req.body.UserId,
+      FirstName: req.body.FirstName,
+      LastName: req.body.LastName,
+      Race: req.body.Race,
+      CountryOfOrigin: req.body.CountryOfOrigin,
+      Age: req.body.Age,
+      Photo: req.file ? req.file.path : "./uploads", 
+      LostDate: req.body.LostDate,
+      Country: req.body.LostPlace.Country,
+      District: req.body.LostPlace.District,
+      Sector: req.body.LostPlace.Sector,
+      Cell: req.body.Cell,
+      Village: req.body.Village,
+      comment: req.body.Comment,
+      Found: req.body.Found,
+    });
 //save post to database
 const saveUser=await newPerson.save()
 if(!saveUser){

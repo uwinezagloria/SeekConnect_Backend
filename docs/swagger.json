@@ -16,9 +16,7 @@
       "post": {
         "summary": "Add  a countact Us ",
         "description": "Add  a countact Us",
-        "tags": [
-          "ContactUs"
-        ],
+        "tags": ["ContactUs"],
         "parameters": [
           {
             "in": "body",
@@ -39,9 +37,7 @@
       "get": {
         "summary": "get  countact Us ",
         "description": "get all   countacted Us",
-        "tags": [
-          "ContactUs"
-        ],
+        "tags": ["ContactUs"],
         "parameters": [
           {
             "in": "path",
@@ -62,9 +58,7 @@
       "patch": {
         "summary": "Update  countact Us ",
         "description": "update   countacted Us",
-        "tags": [
-          "ContactUs"
-        ],
+        "tags": ["ContactUs"],
         "parameters": [
           {
             "in": "query",
@@ -94,9 +88,7 @@
       "delete": {
         "summary": "remove  countact Us ",
         "description": "remove   countacted Us",
-        "tags": [
-          "ContactUs"
-        ],
+        "tags": ["ContactUs"],
         "parameters": [
           {
             "in": "query",
@@ -119,9 +111,7 @@
       "get": {
         "summary": "get  a countact Us  by email",
         "description": "get   a countact Us for a provided email",
-        "tags": [
-          "ContactUs"
-        ],
+        "tags": ["ContactUs"],
         "parameters": [
           {
             "in": "query",
@@ -138,21 +128,13 @@
             "description": "contact us recorded successfully"
           }
         }
-      }},
-
-
-
-
-
-
-
+      }
+    },
     "/signUp": {
       "post": {
         "summary": "Create account ",
         "description": "Create a new account on SeekConnect ",
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "parameters": [
           {
             "in": "body",
@@ -175,9 +157,7 @@
       "post": {
         "summary": "verify account ",
         "description": "verify your  account on SeekConnect ",
-        "tags": [
-          "verification"
-        ],
+        "tags": ["verification"],
         "parameters": [
           {
             "in": "body",
@@ -200,9 +180,7 @@
       "post": {
         "summary": "Login user",
         "description": "Authenticate and login user",
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "parameters": [
           {
             "in": "body",
@@ -228,9 +206,7 @@
       "post": {
         "summary": "Reset Password",
         "description": " user reset new Password ",
-        "tags": [
-          "resetPassword"
-        ],
+        "tags": ["resetPassword"],
         "parameters": [
           {
             "in": "body",
@@ -256,9 +232,7 @@
       "post": {
         "summary": "Post A lost Document",
         "description": " post your lost document",
-        "tags": [
-          "LostDocument"
-        ],
+        "tags": ["LostDocument"],
         "parameters": [
           {
             "in": "body",
@@ -282,9 +256,7 @@
       "patch": {
         "summary": "update A lost Document",
         "description": " update  lost document",
-        "tags": [
-          "LostDocument"
-        ],
+        "tags": ["LostDocument"],
         "parameters": [
           {
             "in": "query",
@@ -317,9 +289,7 @@
       "delete": {
         "summary": "delete lost Document",
         "description": " delete   lost document",
-        "tags": [
-          "LostDocument"
-        ],
+        "tags": ["LostDocument"],
         "parameters": [
           {
             "in": "query",
@@ -343,9 +313,7 @@
       "get": {
         "summary": "get lost Documents",
         "description": " get all  lost documents",
-        "tags": [
-          "LostDocument"
-        ],
+        "tags": ["LostDocument"],
         "parameters": [
           {
             "in": "path",
@@ -360,6 +328,121 @@
         "responses": {
           "200": {
             "description": "Successful  got  lost documents"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/missingPerson": {
+      "post": {
+        "summary": "Create a missing person",
+        "description": "Submit details about a missing person.",
+        "tags": ["MissingPerson"],
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "photo",
+            "in": "formData",
+            "description": "The photo of the missing person",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details about the missing person",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MissingPerson"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Missing person created successfully."
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all missing persons",
+        "description": "Retrieve a list of all reported missing persons.",
+        "tags": ["MissingPerson"],
+         "parameters": [
+          {
+            "in": "path",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/MissingPerson"
+            },
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of missing persons returned."
+          },
+         "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a missing person",
+        "description": "Modify details of a specific missing person.",
+        "tags": ["MissingPerson"],
+          "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "$ref": "#/definitions/MissingPerson"
+            },
+            "required": true,
+            "description": "User credentials"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/MissingPerson"
+            },
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Missing person updated successfully."
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a missing person",
+        "description": "Delete a specific missing person record.",
+        "tags": ["MissingPerson"],
+       "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "$ref": "#/definitions/MissingPerson"
+            },
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+         "200": {
+            "description": "Successful  removed missing person"
           },
           "401": {
             "description": "Invalid credentials"
@@ -413,9 +496,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "otp"
-      ]
+      "required": ["otp"]
     },
     "Login": {
       "type": "object",
@@ -427,10 +508,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "Email",
-        "Password"
-      ]
+      "required": ["Email", "Password"]
     },
     "ResetPassword": {
       "type": "object",
@@ -445,11 +523,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "Email",
-        "Password",
-        "ConfirmPassword"
-      ]
+      "required": ["Email", "Password", "ConfirmPassword"]
     },
     "LostDocument": {
       "type": "object",
@@ -497,6 +571,95 @@
         "LostPlace"
       ]
     },
+    "MissingPerson": {
+      "type": "object",
+      "properties": {
+        "UserId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        },
+        "Race": {
+          "type": "string",
+          "enum": [
+            "Caucasian/White",
+            "African/Black",
+            "Asian",
+            "Native American/Indigenous",
+            "Pacific Islander",
+            "Mixed Race/Multiracial",
+            "Other"
+          ]
+        },
+        "CountryOfOrigin": {
+          "type": "string"
+        },
+        "Age": {
+          "type": "string"
+        },
+        "Photo": {
+          "type": "string"
+        },
+        "LostDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "LostPlace": {
+          "type": "object",
+          "properties": {
+            "Country": {
+              "type": "string"
+            },
+            "Province": {
+              "type": "string"
+            },
+            "District": {
+              "type": "string"
+            },
+            "Sector": {
+              "type": "string"
+            },
+            "Cell": {
+              "type": "string"
+            },
+            "Village": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "Country",
+            "Province",
+            "District",
+            "Sector",
+            "Cell",
+            "Village"
+          ]
+        },
+        "Comment": {
+          "type": "string"
+        },
+        "Found": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": [
+        "UserId",
+        "FirstName",
+        "LastName",
+        "Race",
+        "CountryOfOrigin",
+        "Age",
+        "LostDate",
+        "LostPlace",
+        "Comment"
+      ]
+    },
     "Place": {
       "type": "object",
       "properties": {
@@ -537,19 +700,14 @@
         "Email": {
           "type": "string"
         },
-        "Tel":{
-        "type":"string"
+        "Tel": {
+          "type": "string"
         },
         "Message": {
           "type": "string"
         }
       },
-      "required": [
-        "Name",
-        "Email",
-        "Tel",
-        "Message"
-      ]
+      "required": ["Name", "Email", "Tel", "Message"]
     }
   }
 }
