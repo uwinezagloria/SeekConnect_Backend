@@ -6,6 +6,9 @@ import { errorHandler } from "./middlewares/errorHandler.js"
 import router from "./routes/index.route.js"
 import swagger from "./docs/swagger.json" assert{type:"json"}
 import swaggerUi from "swagger-ui-express"
+import multer from "multer";
+import fs from "fs";
+import path from "path";
 const app=express()
 dotenv.config()
 //middlewares
@@ -29,3 +32,25 @@ mongoose.connect(process.env.MONGODB_URI)
 // errorHandler middleware
  app.use(errorHandler)
 
+ const uploadsDir = path.join("./uploads");
+ if (!fs.existsSync(uploadsDir)) {
+   fs.mkdirSync(uploadsDir, { recursive: true });
+ }
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+const upload = multer({ storage: storage });
+
+// Apply Multer middleware specifically for the missing person route
+app.post(
+  "/api/v1/SeekConnect/missingPerson",
+  upload.single("photo"),
+  (req, res, next) => {
+    next(); // Proceed to the next middleware/route handler
+  }
+);

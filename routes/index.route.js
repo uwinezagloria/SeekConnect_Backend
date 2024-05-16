@@ -17,7 +17,7 @@ router.route("/lost").get(getLostDocuments)
 router.route("/lost").patch(updateLostDocument)
 router.route("/lost").delete(deleteLostDocument)
 //MissingPerson route
-router.route("/missingPerson").post(missingPersonValidation,upload.array("Photo"),postMissingPerson)
+router.route("/missingPerson").post(missingPersonValidation, postMissingPerson)
 router.route("/missingPerson").patch(updateMissingPerson)
 router.route("/missingPeople").get(getMissingPeople)
 router.route("/missingPerson").delete(removeMissingPerson)
