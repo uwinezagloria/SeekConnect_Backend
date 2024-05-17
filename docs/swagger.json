@@ -368,10 +368,12 @@
         "tags": [
           "MissingPerson"
         ],
+        
         "parameters": [
           {
             "name": "file",
-            "in": "file",
+            "in": "body",
+            "type": "file",
             "schema": {
               "$ref": "#/definitions/MissingPerson"
             },
