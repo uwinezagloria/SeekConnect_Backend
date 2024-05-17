@@ -368,25 +368,24 @@
         "tags": [
           "MissingPerson"
         ],
-        "consumes": [
-          "multipart/form-data"
-        ],
         "parameters": [
           {
             "name": "file",
             "in": "file",
+            "schema": {
+              "$ref": "#/definitions/MissingPerson"
+            },
             "description": "The photo of the missing person",
-            "required": true,
-            "type": "file"
+            "required": true
           },
           {
             "name": "body",
             "in": "body",
-            "description": "Details about the missing person",
-            "required": true,
             "schema": {
               "$ref": "#/definitions/MissingPerson"
-            }
+            },
+            "description": "Details about the missing person",
+            "required": true
           }
         ],
         "responses": {
