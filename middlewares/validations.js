@@ -30,15 +30,15 @@ export const lostDocumentValidation=[
     body("PlaceOfIssueOnDocument","placeo of issue for  lost document is required").not().isEmpty(),
     body("LostDate","date  is required").not().isEmpty(),
 ]
-//validate missingPerson
-export const missingPersonValidation=[
-    body("FirstName","First name is required").not().isEmpty(),
-    body("LastName","Last name is required").not().isEmpty(),
-    body("Race","race  is required").not().isEmpty(),
-    body("CountryOfOrigin","Country Of Origin is required").not().isEmpty(),
-    body("LostDate","LostDate  is required").not().isEmpty(),
+// //validate missingPerson
+// export const missingPersonValidation=[
+//     body("FirstName","First name is required").not().isEmpty(),
+//     body("LastName","Last name is required").not().isEmpty(),
+//     body("Race","race  is required").not().isEmpty(),
+//     body("CountryOfOrigin","Country Of Origin is required").not().isEmpty(),
+//     body("LostDate","LostDate  is required").not().isEmpty(),
     
-]
+// ]
 //Validate found lost document
 export const foundDocumentValidation=[
 body("DocumentType","type of lost document is required").not().isEmpty(),
@@ -49,7 +49,7 @@ body("FoundPlace","place  is required").not().isEmpty(),
 ]
 //validate found missing person
 export const foundMissingPersonValidation=[
-    body("FirstName","First name is required").not().isEmpty(),
+     body("FirstName","First name is required").not().isEmpty(),
     body("LastName","Last name is required").not().isEmpty(),
     body("Race","race  is required").not().isEmpty(),
     body("CountryOfOrigin","Country Of Origin is required").not().isEmpty(),
