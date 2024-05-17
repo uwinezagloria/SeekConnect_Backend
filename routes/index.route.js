@@ -1,10 +1,19 @@
 import express from "express"
 import multer from "multer"
-import { contactUsValidation, forgotPasswordValidation, loginValidation, lostDocumentValidation,signUpValidation } from "../middlewares/validations.js"
+import {
+  contactUsValidation,
+  forgotPasswordValidation,
+  loginValidation,
+  lostDocumentValidation,
+  signUpValidation
+//   searchValidation,
+} from "../middlewares/validations.js";
 import { signUp, verifyOtp, login, resertNewPassword} from "../controllers/user.controller.js"
 import { createLostDocument, deleteLostDocument, getLostDocuments, updateLostDocument } from "../controllers/lostDocumentController.js"
 import { getMissingPeople, postMissingPerson, removeMissingPerson, updateMissingPerson } from "../controllers/missingPersonController.js"
 import { createContactUs, deleteContactUs, getContact, getContactUs, updateContactUs } from "../controllers/contactUs.controller.js"
+import { searchDocumentsAndPersons } from "../controllers/search.controller.js";
+
 import upload from "../middlewares/multer.js"
 const router=express.Router()
 //signUp && signIn route
@@ -28,4 +37,6 @@ router.route("/contactUs").get(getContactUs)
 router.route("/contactUs/email").get(getContact)
 router.route("/contactUs").patch(updateContactUs)
 router.route("/contactUs").delete(deleteContactUs)
+// Search route
+router.route("/search").post(searchDocumentsAndPersons);
 export default router 
