@@ -372,7 +372,7 @@
         "parameters": [
           {
             "name": "file",
-            "in": "body",
+            "in": "file",
             "type": "file",
             "schema": {
               "$ref": "#/definitions/MissingPerson"
