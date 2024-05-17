@@ -365,29 +365,131 @@
       "post": {
         "summary": "Create a missing person",
         "description": "Submit details about a missing person.",
-        "tags": [
-          "MissingPerson"
-        ],
-        
+        "tags": ["MissingPerson"],
+        "consumes": ["multipart/form-data"],
         "parameters": [
           {
             "name": "file",
-            "in": "file",
-            "type": "file",
-            "schema": {
-              "$ref": "#/definitions/MissingPerson"
-            },
+            "in": "formData",
             "description": "The photo of the missing person",
-            "required": true
+            "required": true,
+            "type": "file"
           },
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "$ref": "#/definitions/MissingPerson"
-            },
-            "description": "Details about the missing person",
-            "required": true
+            "name": "UserId",
+            "in": "formData",
+            "description": "ID of the user reporting the missing person",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FirstName",
+            "in": "formData",
+            "description": "First name of the missing person",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "LastName",
+            "in": "formData",
+            "description": "Last name of the missing person",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Race",
+            "in": "formData",
+            "description": "Race of the missing person",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "Caucasian/White",
+              "African/Black",
+              "Asian",
+              "Native American/Indigenous",
+              "Pacific Islander",
+              "Mixed Race/Multiracial",
+              "Other"
+            ]
+          },
+          {
+            "name": "CountryOfOrigin",
+            "in": "formData",
+            "description": "Country of origin of the missing person",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Age",
+            "in": "formData",
+            "description": "Age of the missing person",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "LostDate",
+            "in": "formData",
+            "description": "Date when the person was last seen",
+            "required": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "LostPlace.Country",
+            "in": "formData",
+            "description": "Country where the person was last seen",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "LostPlace.Province",
+            "in": "formData",
+            "description": "Province where the person was last seen",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "LostPlace.District",
+            "in": "formData",
+            "description": "District where the person was last seen",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "LostPlace.Sector",
+            "in": "formData",
+            "description": "Sector where the person was last seen",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "LostPlace.Cell",
+            "in": "formData",
+            "description": "Cell where the person was last seen",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "LostPlace.Village",
+            "in": "formData",
+            "description": "Village where the person was last seen",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Comment",
+            "in": "formData",
+            "description": "Additional comments or details",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Found",
+            "in": "formData",
+            "description": "Whether the person has been found",
+            "required": false,
+            "type": "boolean",
+            "default": false
           }
         ],
         "responses": {
@@ -398,7 +500,9 @@
             "description": "Invalid credentials"
           }
         }
-      },
+      }
+    },
+
       "get": {
         "summary": "Get all missing persons",
         "description": "Retrieve a list of all reported missing persons.",
@@ -487,7 +591,7 @@
         }
       }
     }
-  },
+  ,
   "definitions": {
     "User": {
       "type": "object",
@@ -616,66 +720,7 @@
         "LostDate",
         "LostPlace"
       ]
-    },
-    "MissingPerson": {
-      "type": "object",
-      "properties": {
-        "UserId": {
-          "type": "string"
-        },
-        "FirstName": {
-          "type": "string"
-        },
-        "LastName": {
-          "type": "string"
-        },
-        "Race": {
-          "type": "string",
-          "enum": [
-            "Caucasian/White",
-            "African/Black",
-            "Asian",
-            "Native American/Indigenous",
-            "Pacific Islander",
-            "Mixed Race/Multiracial",
-            "Other"
-          ]
-        },
-        "CountryOfOrigin": {
-          "type": "string"
-        },
-        "Age": {
-          "type": "number"
-        },
-        "Photo": {
-          "$ref": "#/definitions/photoAssets"
-        },
-        "LostDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "LostPlace": {
-          "$ref": "#definitions/Place"
-        },
-        "Comment": {
-          "type": "string"
-        },
-        "Found": {
-          "type": "boolean",
-          "default": false
-        }
-      },
-      "required": [
-        "UserId",
-        "FirstName",
-        "LastName",
-        "Race",
-        "CountryOfOrigin",
-        "Age",
-        "LostDate",
-        "LostPlace",
-        "Comment"
-      ]
+    }
     },
   "Place": {
     "type": "object",
@@ -730,20 +775,5 @@
       "Tel",
       "Message"
     ]
-  },
-  "photoAssets": {
-    "type": "object",
-    "properties": {
-      "public_id": {
-        "type": "string"
-      },
-      "url": {
-        "type": "string"
-      },
-      "asset_id": {
-        "type": "string"
-      }
-    }
   }
   }
-}
