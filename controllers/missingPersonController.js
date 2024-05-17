@@ -5,9 +5,7 @@ import customError from "../middlewares/customError.js"
 import { validationResult } from "express-validator";
 import cloudinary from "../utils/cloudinary.js";
 //POST A MISSING PERSON
-export const postMissingPerson = asyncWrapper(async (req, res, next) => {
-    
-    
+export const postMissingPerson = asyncWrapper(async (req, res, next) => { 
 try{
     //create post for missing person
     const result = await cloudinary.uploader.upload(req.file.path,function(err,result) {
