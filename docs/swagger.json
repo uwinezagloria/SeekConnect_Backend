@@ -575,8 +575,7 @@
       "type": "object",
       "properties": {
         "UserId": {
-          "type": "string",
-          "format": "uuid"
+          "type": "string"
         },
         "FirstName": {
           "type": "string"
@@ -613,21 +612,13 @@
           "$ref": "#definitions/Place"
         
           },
-          "required": [
-            "Country",
-            "Province",
-            "District",
-            "Sector",
-            "Cell",
-            "Village"
-          ]
-        },
-        "Comment": {
-          "type": "string"
-        },
-        "Found": {
-          "type": "boolean",
-          "default": false
+          "Comment": {
+            "type": "string"
+          },
+          "Found": {
+            "type": "boolean",
+            "default": false
+          }
         },
         "required": [
           "UserId",
