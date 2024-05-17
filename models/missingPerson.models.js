@@ -19,7 +19,7 @@ const personSchema = new mongoose.Schema({
         type: String
     },
     Age: {
-        type: String
+        type: Number
     },
     Photo: {
         public_id:{
@@ -27,10 +27,13 @@ const personSchema = new mongoose.Schema({
         },
         url:{
             type:String
+        },
+        asset_id:{
+            type:String
         }
     },
     LostDate: {
-        type: Date
+        type: String
     },
     LostPlace: {
         Country: {
@@ -55,7 +58,7 @@ const personSchema = new mongoose.Schema({
     Comment: {
         type: String
     },
-    found: {
+    Found: {
         type: Boolean,
         default: false
     }

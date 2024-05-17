@@ -343,8 +343,8 @@
         "consumes": ["multipart/form-data"],
         "parameters": [
           {
-            "name": "photo",
-            "in": "formData",
+            "name": "file",
+            "in": "file",
             "description": "The photo of the missing person",
             "required": true,
             "type": "file"
@@ -600,36 +600,18 @@
           "type": "string"
         },
         "Age": {
-          "type": "string"
+          "type": "number"
         },
         "Photo": {
-          "type": "string"
+          "$ref": "#/definitions/photoAssets"
         },
         "LostDate": {
           "type": "string",
           "format": "date-time"
         },
         "LostPlace": {
-          "type": "object",
-          "properties": {
-            "Country": {
-              "type": "string"
-            },
-            "Province": {
-              "type": "string"
-            },
-            "District": {
-              "type": "string"
-            },
-            "Sector": {
-              "type": "string"
-            },
-            "Cell": {
-              "type": "string"
-            },
-            "Village": {
-              "type": "string"
-            }
+          "$ref": "#definitions/Place"
+        
           },
           "required": [
             "Country",
@@ -646,20 +628,20 @@
         "Found": {
           "type": "boolean",
           "default": false
-        }
+        },
+        "required": [
+          "UserId",
+          "FirstName",
+          "LastName",
+          "Race",
+          "CountryOfOrigin",
+          "Age",
+          "LostDate",
+          "LostPlace",
+          "Comment"
+        ]
+      }
       },
-      "required": [
-        "UserId",
-        "FirstName",
-        "LastName",
-        "Race",
-        "CountryOfOrigin",
-        "Age",
-        "LostDate",
-        "LostPlace",
-        "Comment"
-      ]
-    },
     "Place": {
       "type": "object",
       "properties": {
@@ -708,6 +690,19 @@
         }
       },
       "required": ["Name", "Email", "Tel", "Message"]
+    },
+    "photoAssets":{
+      "type":"object",
+      "properties":{
+        "public_id":{
+          "type":"string"
+        },
+        "url":{
+          "type":"string"
+        },
+        "asset_id":{
+          "type":"string"
+        }
+      }
     }
   }
-}
