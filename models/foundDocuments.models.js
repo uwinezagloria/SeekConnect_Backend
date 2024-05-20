@@ -3,20 +3,31 @@ import mongoose from "mongoose"
 const foundSchema=new mongoose.Schema({
     UserId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:SignUp
+        ref:'SignUp'
     },
 DocumentType:{
-type:string,
+type:String,
 enum:["Drivers License","National Id Card","Health Insurance Card","Refugee Identity Document","Othe Form Of Identity"]
 },
     NameOnDocument:{
-    type:string
+    type:String
 },
 PlaceOfIssueOnDocument:{
     type:String
 },
 FoundDate:{
-    type:Date
+    type:String
+},
+Photo:{
+    public_id:{
+type:String
+    },
+    asset_id:{
+        type:String
+    },
+    url:{
+        type:String
+    }
 },
 FoundPlace:{
    Country: {
@@ -39,8 +50,12 @@ type:String
     }
 },
 Comment:{
-type:string
+type:String
 },
+returnedToOwner:{
+    type:Boolean,
+    default:false
+}
 })
 const foundDocumentModel=mongoose.model("foundDocument",foundSchema)
 export default foundDocumentModel

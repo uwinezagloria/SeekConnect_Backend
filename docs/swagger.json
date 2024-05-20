@@ -5,7 +5,7 @@
     "description": "API documentation for SeekConnect ",
     "version": "1.0.0"
   },
-  "host": "seekconnect-backend-1.onrender.com",
+  "host": "localhost:10000",
   "basePath": "",
   "schemes": [
     "https",
@@ -508,66 +508,174 @@
             "description": "Invalid credentials"
           }
         }
-      }
-    },
-
-      "get": {
-        "summary": "Get all missing persons",
-        "description": "Retrieve a list of all reported missing persons.",
+      },
+      "patch": {
+        "summary": "update a missing person",
+        "description": "updating  missing person.",
         "tags": ["MissingPerson"],
         "parameters": [
           {
-            "in": "path",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/MissingPerson"
-            },
+            "name": "id",
+            "in": "query",
+            "description": "ID of the missing person record to update",
             "required": true,
-            "description": "User credentials"
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "The photo of the missing person",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "UserId",
+            "in": "formData",
+            "description": "ID of the user reporting the missing person",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FirstName",
+            "in": "formData",
+            "description": "First name of the missing person",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "LastName",
+            "in": "formData",
+            "description": "Last name of the missing person",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Race",
+            "in": "formData",
+            "description": "Race of the missing person",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "Caucasian/White",
+              "African/Black",
+              "Asian",
+              "Native American/Indigenous",
+              "Pacific Islander",
+              "Mixed Race/Multiracial",
+              "Other"
+            ]
+          },
+          {
+            "name": "CountryOfOrigin",
+            "in": "formData",
+            "description": "Country of origin of the missing person",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Age",
+            "in": "formData",
+            "description": "Age of the missing person",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "LostDate",
+            "in": "formData",
+            "description": "Date when the person was last seen",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "LostPlace.Country",
+            "in": "formData",
+            "description": "Country where the person was last seen",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "LostPlace.Province",
+            "in": "formData",
+            "description": "Province where the person was last seen",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "LostPlace.District",
+            "in": "formData",
+            "description": "District where the person was last seen",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "LostPlace.Sector",
+            "in": "formData",
+            "description": "Sector where the person was last seen",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "LostPlace.Cell",
+            "in": "formData",
+            "description": "Cell where the person was last seen",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "LostPlace.Village",
+            "in": "formData",
+            "description": "Village where the person was last seen",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Comment",
+            "in": "formData",
+            "description": "Additional comments or details",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Found",
+            "in": "formData",
+            "description": "Whether the person has been found",
+            "required": false,
+            "type": "boolean",
+            "default": false
           }
         ],
         "responses": {
           "200": {
-            "description": "List of missing persons returned."
+            "description": "Missing person created successfully."
           },
           "401": {
             "description": "Invalid credentials"
           }
         }
       },
-      "patch": {
-        "summary": "Update a missing person",
-        "description": "Modify details of a specific missing person.",
+      "get": {
+        "summary": "Get one missing person by his/her id",
+        "description": "Get one missing person by his/her id.",
         "tags": ["MissingPerson"],
         "parameters": [
           {
             "in": "query",
             "name": "id",
-            "schema": {
-              "$ref": "#/definitions/MissingPerson"
-            },
-            "required": true,
-            "description": "User credentials"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/MissingPerson"
-            },
             "required": true,
             "description": "User credentials"
           }
         ],
         "responses": {
           "200": {
-            "description": "Missing person updated successfully."
+            "description": "details missing person returned."
           },
           "401": {
             "description": "Invalid credentials"
           }
         }
       },
+      
       "delete": {
         "summary": "Remove a missing person",
         "description": "Delete a specific missing person record.",
@@ -576,9 +684,6 @@
           {
             "in": "query",
             "name": "id",
-            "schema": {
-              "$ref": "#/definitions/MissingPerson"
-            },
             "required": true,
             "description": "User credentials"
           }
@@ -592,8 +697,174 @@
           }
         }
       }
+    },
+    "/missingPeople":{
+      "get": {
+        "summary": "Get all missing people",
+        "description": "list of all missing people",
+        "tags": ["MissingPerson"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "url",
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "details missing people returned."
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+"/foundDocument":{
+  "post":{
+    "summary": "post a found document ",
+    "description": "Submit details about found document",
+    "tags": ["FoundLostDocument"],
+    "parameters": [
+      {
+        "name": "file",
+        "in": "formData",
+        "description": "The photo of found document",
+        "required": true,
+        "type": "file"
+      },
+      {
+        "name": "UserId",
+        "in": "formData",
+        "description": "ID of the user reporting the missing person",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "DocumentType",
+        "in": "formData",
+        "description":"type of found document",
+        "enum":["Drivers License","National Id Card","Health Insurance Card","Refugee Identity Document","Othe Form Of Identity"],
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "NameOnDocument",
+        "in": "formData",
+        "description": "Name that are on foundDcoument",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "PlaceOfIssueOnDocument",
+        "in": "formData",
+        "description": "place of issue that is on the found Document",
+        "required": true,
+        "type": "string"
+        
+      },
+      {
+        "name": "FoundDate",
+        "in": "formData",
+        "description": "the date you found the lost document",
+        "required": true,
+        "type": "string"
+      },
+
+      {
+        "name": "FoundPlace.Country",
+        "in": "formData",
+        "description": "Country where you that found document is",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "FoundPlace.Province",
+        "in": "formData",
+        "description": "Province where  found document is ",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "FoundPlace.District",
+        "in": "formData",
+        "description": "District where the found document is",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "FoundPlace.Sector",
+        "in": "formData",
+        "description": "Sector where the found document is",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "FoundPlace.Cell",
+        "in": "formData",
+        "description": "Cell where the found document is ",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "FoundPlace.Village",
+        "in": "formData",
+        "description": "Village where the found document is",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "name": "Comment",
+        "in": "formData",
+        "description": "Additional comments or details",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "returnedToOwner",
+        "in": "formData",
+        "description": "Whether the document have returned to the owner of it ",
+        "required": false,
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Missing person created successfully."
+      },
+      "401": {
+        "description": "Invalid credentials"
+      }
     }
-  ,
+  }   
+},
+"/foundDocuments":{
+  "get":{
+    "summary": "Get all found documents",
+    "description": "list of all found document",
+    "tags": ["FoundLostDocument"],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "url",
+        "required": true,
+        "description": "User credentials"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "details found documents returned."
+      },
+      "401": {
+        "description": "Invalid credentials"
+      }
+    }
+  }
+}
+    },
+  
   "definitions": {
     "Search": {
       "type": "object",
