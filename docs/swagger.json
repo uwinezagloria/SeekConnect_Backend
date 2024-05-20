@@ -5,13 +5,68 @@
     "description": "API documentation for SeekConnect ",
     "version": "1.0.0"
   },
-  "host": "seekconnect-backend-1.onrender.com",
+  "host": "localhost:10000",
   "basePath": "",
   "schemes": [
     "https",
     "http"
   ],
   "paths": {
+  "/filter": {
+    "post": {
+      "summary": "Filter by category",
+      "description": "Filter documents and persons by category.",
+      "tags": ["Filter"],
+      "parameters": [
+        {
+          "in": "body",
+          "name": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "type": "string",
+                "description": "The category to filter by.",
+                "enum": ["LostDocument", "MissingPerson"]
+              }
+            }
+          },
+          "required": true,
+          "description": "Filter input"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Filter results returned successfully.",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "example": "success"
+              },
+              "results": {
+                "type": "integer",
+                "description": "Number of results returned"
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad request. Category is required or invalid."
+        },
+        "500": {
+          "description": "Internal server error."
+        }
+      }
+    }
+  },
     "/search": {
       "post": {
         "summary": "Search documents and persons",
@@ -595,6 +650,17 @@
     }
   ,
   "definitions": {
+    "Filter": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "description": "The category to filter by.",
+          "enum": ["LostDocument", "MissingPerson"]
+        }
+      },
+      "required": ["category"]
+    },
     "Search": {
       "type": "object",
       "properties": {
@@ -650,9 +716,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "otp"
-      ]
+      "required": ["otp"]
     },
     "Login": {
       "type": "object",
@@ -664,10 +728,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "Email",
-        "Password"
-      ]
+      "required": ["Email", "Password"]
     },
     "ResetPassword": {
       "type": "object",
@@ -682,11 +743,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "Email",
-        "Password",
-        "ConfirmPassword"
-      ]
+      "required": ["Email", "Password", "ConfirmPassword"]
     },
     "LostDocument": {
       "type": "object",
@@ -734,7 +791,7 @@
         "LostPlace"
       ]
     }
-    },
+  },
   "Place": {
     "type": "object",
     "properties": {

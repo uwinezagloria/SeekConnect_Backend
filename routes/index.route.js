@@ -40,5 +40,5 @@ router.route("/contactUs").delete(deleteContactUs)
 // Search route
 router.route("/search").post(searchDocumentsAndPersons);
 // Filter route
-router.route('/filter').get(filterByCategory);
+router.route('/filter').post(filterByCategory);
 export default router 
