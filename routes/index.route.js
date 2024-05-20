@@ -13,8 +13,8 @@ import { createLostDocument, deleteLostDocument, getLostDocuments, updateLostDoc
 import { getMissingPeople, postMissingPerson, removeMissingPerson, updateMissingPerson } from "../controllers/missingPersonController.js"
 import { createContactUs, deleteContactUs, getContact, getContactUs, updateContactUs } from "../controllers/contactUs.controller.js"
 import { searchDocumentsAndPersons } from "../controllers/search.controller.js";
-
-import upload from "../middlewares/multer.js"
+import { filterByCategory } from '../controllers/filter.controller.js'; 
+import upload from "../middlewares/multer.js";
 const router=express.Router()
 //signUp && signIn route
 router.route("/signUp").post(signUpValidation,signUp)
@@ -39,4 +39,6 @@ router.route("/contactUs").patch(updateContactUs)
 router.route("/contactUs").delete(deleteContactUs)
 // Search route
 router.route("/search").post(searchDocumentsAndPersons);
+// Filter route
+router.route('/filter').get(filterByCategory);
 export default router 
