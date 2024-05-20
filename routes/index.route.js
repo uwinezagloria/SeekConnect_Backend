@@ -10,11 +10,12 @@ import {
 } from "../middlewares/validations.js";
 import { signUp, verifyOtp, login, resertNewPassword} from "../controllers/user.controller.js"
 import { createLostDocument, deleteLostDocument, getLostDocuments, updateLostDocument } from "../controllers/lostDocumentController.js"
-import { getMissingPeople, postMissingPerson, removeMissingPerson, updateMissingPerson } from "../controllers/missingPersonController.js"
+import { getMissingPeople, getMissingperson, postMissingPerson, removeMissingPerson, updateMissingPerson } from "../controllers/missingPersonController.js"
 import { createContactUs, deleteContactUs, getContact, getContactUs, updateContactUs } from "../controllers/contactUs.controller.js"
 import { searchDocumentsAndPersons } from "../controllers/search.controller.js";
 import { filterByCategory } from '../controllers/filter.controller.js'; 
 import upload from "../middlewares/multer.js";
+import { getAllFoundDocument, postFoundDocument } from "../controllers/foundDocument.controller.js";
 const router=express.Router()
 //signUp && signIn route
 router.route("/signUp").post(signUpValidation,signUp)
@@ -28,8 +29,9 @@ router.route("/lost").patch(updateLostDocument)
 router.route("/lost").delete(deleteLostDocument)
 //MissingPerson route
 router.route("/missingPerson").post(upload.single('file'), postMissingPerson)
-router.route("/missingPerson").patch(updateMissingPerson)
+router.route("/missingPerson").patch(upload.single('file'),updateMissingPerson)
 router.route("/missingPeople").get(getMissingPeople)
+router.route("/missingPerson").get(getMissingperson)
 router.route("/missingPerson").delete(removeMissingPerson)
 //contact us route
 router.route("/contactUs").post(contactUsValidation,createContactUs)
@@ -40,5 +42,5 @@ router.route("/contactUs").delete(deleteContactUs)
 // Search route
 router.route("/search").post(searchDocumentsAndPersons);
 // Filter route
-router.route('/filter').post(filterByCategory);
+
 export default router 
