@@ -3,9 +3,8 @@ import missingPersonModel from "../models/missingPerson.models.js";
 import asyncWrapper from "../middlewares/async.js";
 import customError from "../middlewares/customError.js";
 
-// Filter Controller
 export const filterByCategory = asyncWrapper(async (req, res, next) => {
-  const { category } = req.query;
+  const { category } = req.body;
 
   if (!category) {
     return next(new customError("Category is required", 400));
