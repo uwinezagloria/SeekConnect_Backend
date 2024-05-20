@@ -15,7 +15,7 @@ import { createContactUs, deleteContactUs, getContact, getContactUs, updateConta
 import { searchDocumentsAndPersons } from "../controllers/search.controller.js";
 import { filterByCategory } from '../controllers/filter.controller.js'; 
 import upload from "../middlewares/multer.js";
-import { getAllFoundDocument, postFoundDocument } from "../controllers/foundDocument.controller.js";
+import { deleteFoundDocument, getAllFoundDocument, getFoundDocument, postFoundDocument, updateFoundDocument } from "../controllers/foundDocument.controller.js";
 const router=express.Router()
 //signUp && signIn route
 router.route("/signUp").post(signUpValidation,signUp)
@@ -45,5 +45,8 @@ router.route("/search").post(searchDocumentsAndPersons);
 router.route('/filter').get(filterByCategory);
 //Found Document route
 router.route("/foundDocument").post(upload.single('file'),postFoundDocument)
+router.route("/foundDocument").patch(upload.single('file'),updateFoundDocument)
 router.route("/foundDocuments").get(getAllFoundDocument)
+router.route("/foundDocument").get(getFoundDocument)
+router.route("/foundDocument").delete(deleteFoundDocument)
 export default router 
