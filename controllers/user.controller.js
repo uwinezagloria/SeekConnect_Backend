@@ -6,51 +6,56 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import otpGenerator from "../utils/otp.js";
 import { sendEmail } from "../utils/sendemail.js";
-import { generateRandomToken } from "../utils/randomToken.js";
+
 //registration
 export const signUp=asyncWrapper(async(req,res,next)=>{
     
+try{
+ //signUp validation
+ const errors=validationResult(req)
+ if(!errors.isEmpty()){
+     return next(new customError(errors.array()[0].msg,403))
+ }
+ //check if user exist
 
-        //signUp validation
-        const errors=validationResult(req)
-        if(!errors.isEmpty()){
-            return next(new customError(errors.array()[0].msg,403))
-        }
-        //check if user exist
-    
-        const userExist=await userModel.findOne({Email:req.body.Email})
-        if(userExist){
-            return next(new customError("user already exist",403))
-        }
-        //compare password with confirm password
-        if(req.body.Password !== req.body.ConfirmPassword){
-            return next(new customError("password do not match",403))
-        }
-        
-        //hash password
-        const hashedPassword=await bcrypt.hash(req.body.Password,10)
-        //generation otp
-        const otp=otpGenerator()
-        const otpExpiration = new Date();
-        otpExpiration.setMinutes(otpExpiration.getMinutes() + 10); // OTP expires in 10 minutes
+ const userExist=await userModel.findOne({Email:req.body.Email})
+ if(userExist){
+     return next(new customError("user already exist",403))
+ }
+ //compare password with confirm password
+ if(req.body.Password !== req.body.ConfirmPassword){
+     return next(new customError("password do not match",403))
+ }
+ 
+ //hash password
+ const hashedPassword=await bcrypt.hash(req.body.Password,10)
+ //generation otp
+ const otp=otpGenerator()
+ const otpExpiration = new Date();
+ otpExpiration.setMinutes(otpExpiration.getMinutes() + 10); // OTP expires in 10 minutes
 //send verification code
-        await sendEmail(req.body.Email, "Verification Code", `Your OTP is ${otp}`);
-        //create user
+ await sendEmail(req.body.Email, "Verification Code", `Your OTP is ${otp}`);
+ //create user
 const user=new userModel({
-    FirstName:req.body.FirstName,
-    LastName:req.body.LastName,
-    Email:req.body.Email,
-    Password:hashedPassword,
-    otp:otp,
-    otpExpiration:otpExpiration,
-    otpVerified,
-    role:req.body.role
+FirstName:req.body.FirstName,
+LastName:req.body.LastName,
+Email:req.body.Email,
+Password:hashedPassword,
+otp:otp,
+otpExpiration:otpExpiration,
+role:req.body.role
 })
 //save user to database
 const saveUser=await user.save()
-if(saveUser){
-    return res.status(201).json({message:"user created successfully"})
+if(!saveUser){
+return res.status(500).json({message:"something went wrong,please try again"})
 }
+res.status(201).json({message:"user created successfully"})
+}
+ catch(error) {
+    console.log(error.message)
+    return res.status(500).json({message:"error occur in login"})
+ }     
 })
 
 // Verify OTP 
