@@ -8,7 +8,7 @@ import {
   signUpValidation
 //   searchValidation,
 } from "../middlewares/validations.js";
-import { signUp, verifyOtp, login, resertNewPassword} from "../controllers/user.controller.js"
+import { signUp, verifyOtp, login, resertNewPassword, getAllUser, getUserByRole, getUserById, updateUser, deleteUser} from "../controllers/user.controller.js"
 import { createLostDocument, deleteLostDocument, getLostDocuments, updateLostDocument } from "../controllers/lostDocumentController.js"
 import { getMissingPeople, getMissingperson, postMissingPerson, removeMissingPerson, updateMissingPerson } from "../controllers/missingPersonController.js"
 import { createContactUs, deleteContactUs, getContact, getContactUs, updateContactUs } from "../controllers/contactUs.controller.js"
@@ -23,6 +23,12 @@ router.route("/signUp").post(signUpValidation,signUp)
 router.route("/otp-verify").post(verifyOtp)
 router.route("/login").post(loginValidation,login);
 router.route("/resetPassword").post(forgotPasswordValidation,resertNewPassword)
+//users
+router.route("/users").get(getAllUser)
+router.route("/users/role").get(getUserByRole)
+router.route("/user").get(getUserById)
+router.route("users").patch(updateUser)
+router.route("/user").delete(deleteUser)
 //LostDocument route
 router.route("/lost").post(lostDocumentValidation,createLostDocument)
 router.route("/lost").get(getLostDocuments)
