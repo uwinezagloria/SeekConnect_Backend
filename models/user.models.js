@@ -26,12 +26,11 @@ type:String
     type:Boolean,
     default:false
    },
-//    resertToken:{
-//       type:String
-//    },
-//    resertTokenExpires:{
-// type:Date
-//    }
+    role:{
+      enum:['admin','user'],
+      type:String
+    }
+
 })
 const userModel=mongoose.model("SignUp",userSchema)
 export default userModel

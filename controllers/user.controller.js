@@ -42,7 +42,9 @@ const user=new userModel({
     Email:req.body.Email,
     Password:hashedPassword,
     otp:otp,
-    otpExpiration:otpExpiration
+    otpExpiration:otpExpiration,
+    otpVerified,
+    role:req.body.role
 })
 //save user to database
 const saveUser=await user.save()
