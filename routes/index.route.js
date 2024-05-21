@@ -42,11 +42,15 @@ router.route("/contactUs").delete(deleteContactUs)
 // Search route
 router.route("/search").post(searchDocumentsAndPersons);
 // Filter route
-router.route('/filter').get(filterByCategory);
-//Found Document route
-router.route("/foundDocument").post(upload.single('file'),postFoundDocument)
-router.route("/foundDocument").patch(upload.single('file'),updateFoundDocument)
-router.route("/foundDocuments").get(getAllFoundDocument)
-router.route("/foundDocument").get(getFoundDocument)
-router.route("/foundDocument").delete(deleteFoundDocument)
+// <<<<<<< controllers
+// router.route('/filter').get(filterByCategory);
+// //Found Document route
+// router.route("/foundDocument").post(upload.single('file'),postFoundDocument)
+// router.route("/foundDocument").patch(upload.single('file'),updateFoundDocument)
+// router.route("/foundDocuments").get(getAllFoundDocument)
+// router.route("/foundDocument").get(getFoundDocument)
+// router.route("/foundDocument").delete(deleteFoundDocument)
+// =======
+
+// >>>>>>> main
 export default router 
