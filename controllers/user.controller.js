@@ -6,6 +6,10 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import otpGenerator from "../utils/otp.js";
 import { sendEmail } from "../utils/sendemail.js";
+import lostDocumentModel from "../models/lostDocument.models.js";
+import foundDocumentModel from "../models/foundDocuments.models.js";
+import missingPersonModel from "../models/missingPerson.models.js";
+import foundMissingPersonModel from "../models/foundMissingPerson.models.js";
 
 //registration
 export const signUp=asyncWrapper(async(req,res,next)=>{
@@ -135,6 +139,7 @@ if(!error.isEmpty()){
     }
     catch(error){
         console.log(error.message)
+        return res.status(500).json({message:"error occur !try again"})
     }
     });
 //reseting new password when you forgot it
@@ -168,5 +173,105 @@ console.log(req.body.Password)
     }
     catch(error){
         console.log(error.message)
+        return res.status(500).json({message:"an error occur!please try again"})
     }
+})
+//update user credentials
+export const updateUser=asyncWrapper(async(req,res,next)=>{
+    try{
+const update=await userModel.findByIdAndUpdate({_id:req.query.id},req.body,{new:true})
+if(!update){
+    return next(new customError("user not found",404))
+}
+res.status(200).json({
+    message:"update user information",
+updated:update
+})
+    }
+    catch(error){
+        console.log(error.message)
+        return res.status(500).json({message:"an error occur!please try again"})
+    }
+})
+//get all users
+export const  getAllUser=asyncWrapper(async(req,res,next)=>{
+    try{
+const getAll=await userModel.find()
+res.status(200).json({
+    message:"all user of seekconect",
+    users:getAll
+})
+    }
+    catch(error){
+        console.log(error.message)
+        return res.status(500).json({message:"error occur!try again"})
+    }
+})
+//get user by role
+export const getUserByRole=asyncWrapper(async(req,res,next)=>{
+    try{
+const getUser=await userModel.findOne({role:req.query.role})
+if(!getUser){
+    return next(new customError(`No users with role ${req.query.role}`,404))
+}
+res.status(200).json({
+    message:"get user their role",
+    users:getUser
+})
+    }
+    catch(error){
+        console.log(error.message)
+        return res.status(500).json({message:"error occur!try again"})
+    }
+})
+//get user by his/her id
+export const getUserById=asyncWrapper(async(req,res,next)=>{
+    try{
+const getUser=await userModel.findOne({_id:req.query.id})
+if(!getUser){
+    return next(new customError(`No users with id ${req.query.id}`,404))
+}
+res.status(200).json({
+    message:"get user by id",
+    users:getUser
+})
+    }
+    catch(error){
+        console.log(error.message)
+        return res.status(500).json({message:"error occur!try again"})
+    }
+})
+//delete user
+export const deleteUser=asyncWrapper(async(req,res,next)=>{
+    try{
+        const removeUser=await userModel.findByIdAndDelete({_id:req.query.id})
+        if(!removeUser){
+            return next(new customError(`No users with id ${req.query.id}`,404))
+        }
+        //delete all things create by this user
+        //1.delete lostdocument if user has created it
+        const lostDocument=await lostDocumentModel.findOne({userId:req.query.id})
+        const foundDocument=await foundDocumentModel.findOne({userId:req.query.id})
+        const missingPerson=await missingPersonModel.findOne({userId:req.quey.id})
+        const foundMissingPerson=await foundMissingPersonModel.findOne({userId:req.query.id})
+        if(lostDocument){
+            await lostDocument.findByIdAndDelete({_id:lostDocument._id})
+        }
+        if(foundDocument){
+            await foundDocument.findByIdAndDelete({_id:foundDocument._id})
+        }
+        if(missingPerson){
+        await missingPerson.findByIdAndDelete({_id:missingPerson._id})
+        }
+        if(foundMissingPerson){
+            await foundMissingPerson.findByIdAndDelete({_id:foundMissingPerson._id})
+        }
+        res.status(200).json({
+            message:"user account deleted successfully"
+        })
+            }
+            catch(error){
+                console.log(error.message)
+                return res.status(500).json({message:"error occur!try again"})
+            }
 })

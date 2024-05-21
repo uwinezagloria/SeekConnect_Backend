@@ -243,6 +243,127 @@
         }
       }
     },
+    "/users":{
+"get":{
+  "summary": "get all users who created account ",
+  "description": "list of all users of SeekConnect ",
+  "tags": ["User"],
+  "parameters": [
+    {
+      "in": "path",
+      "name": "url",
+      "schema": {
+        "$ref": "#/definitions/User"
+      },
+      "required": true,
+      "description": "User object"
+    }
+  ],
+  "responses": {
+    "201": {
+      "description": "users got successfully"
+    }
+  }
+},
+  "patch":{
+    "summary": "update user account ",
+    "description": "update user account ",
+    "tags": ["User"],
+    "parameters": [
+      {
+        "in": "query",
+        "name": "id",
+        "schema": {
+          "$ref": "#/definitions/User"
+        },
+        "required": true,
+        "description": "User object"
+      },
+      {
+        "in": "body",
+        "name": "body",
+        "schema": {
+          "$ref": "#/definitions/User"
+        },
+        "required": true,
+        "description": "User object"
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "Account updated successfully"
+      }
+    }
+  }
+}
+,
+"/users/role":{
+  "get":{
+    "summary": "get all users according to their role  ",
+    "description": "list of all users of SeekConnect  classified according to their role",
+    "tags": ["User"],
+    "parameters": [
+      {
+        "in": "query",
+        "name": "role",
+        "schema": {
+          "$ref": "#/definitions/User"
+        },
+        "required": true,
+        "description": "User object"
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "users got successfully"
+      }
+    } 
+}
+},
+"/user":{
+  "/get":{
+    "summary": "get a user by his/her id ",
+    "description": "get one use according to his/her id ",
+    "tags": ["User"],
+    "parameters": [
+      {
+        "in": "query",
+        "name": "id",
+        "schema": {
+          "$ref": "#/definitions/User"
+        },
+        "required": true,
+        "description": "User object"
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "user got successfully"
+      }
+    }
+  },
+  "delete":{
+    "summary": "delete  user account  by his/her id",
+    "description": "delete an account of the user  using id",
+    "tags": ["User"],
+    "parameters": [
+      {
+        "in": "query",
+        "name": "id",
+        "schema": {
+          "$ref": "#/definitions/User"
+        },
+        "required": true,
+        "description": "User object"
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "users deleted successfully"
+      }
+    }
+  }
+},
     "/otp-verify": {
       "post": {
         "summary": "verify account ",
