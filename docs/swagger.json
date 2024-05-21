@@ -5,6 +5,7 @@
     "description": "API documentation for SeekConnect ",
     "version": "1.0.0"
   },
+
   "basePath": "",
   "schemes": [
     "https",
@@ -886,13 +887,179 @@
     ],
     "responses": {
       "200": {
-        "description": "Missing person created successfully."
+        "description": "found document posted successfully."
       },
       "401": {
         "description": "Invalid credentials"
       }
     }
-  }   
+  } ,
+  "get":{
+    "summary": "Get  found document",
+    "description": "get found document by id",
+    "tags": ["FoundLostDocument"],
+    "parameters": [
+      {
+        "in": "query",
+        "name": "id",
+        "required": true,
+        "description": "User credentials"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "details found document returned."
+      },
+      "401": {
+        "description": "Invalid credentials"
+      }
+    }
+  },
+  "delete":{
+    "summary": "delete found document",
+    "description": "delete found document by id",
+    "tags": ["FoundLostDocument"],
+    "parameters": [
+      {
+        "in": "query",
+        "name": "id",
+        "required": true,
+        "description": "User credentials"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": " found document deleted."
+      },
+      "401": {
+        "description": "Invalid credentials"
+      }
+    }
+  },
+  "patch" :{
+    "summary": "update a found document ",
+    "description": "Submit details about found document",
+    "tags": ["FoundLostDocument"],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "query",
+        "description": "id of the found document you want to update",
+        "required": true,
+        "type":"string"
+      },
+      {
+        "name": "file",
+        "in": "formData",
+        "description": "The photo of found document",
+        "required": false,
+        "type": "file"
+      },
+      {
+        "name": "UserId",
+        "in": "formData",
+        "description": "ID of the user reporting the found document",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "DocumentType",
+        "in": "formData",
+        "description":"type of found document",
+        "enum":["Drivers License","National Id Card","Health Insurance Card","Refugee Identity Document","Othe Form Of Identity"],
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "NameOnDocument",
+        "in": "formData",
+        "description": "Name that are on foundDcoument",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "PlaceOfIssueOnDocument",
+        "in": "formData",
+        "description": "place of issue that is on the found Document",
+        "required": false,
+        "type": "string"
+        
+      },
+      {
+        "name": "FoundDate",
+        "in": "formData",
+        "description": "the date you found the lost document",
+        "required": false,
+        "type": "string"
+      },
+
+      {
+        "name": "FoundPlace.Country",
+        "in": "formData",
+        "description": "Country where you that found document is",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "FoundPlace.Province",
+        "in": "formData",
+        "description": "Province where  found document is ",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "FoundPlace.District",
+        "in": "formData",
+        "description": "District where the found document is",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "FoundPlace.Sector",
+        "in": "formData",
+        "description": "Sector where the found document is",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "FoundPlace.Cell",
+        "in": "formData",
+        "description": "Cell where the found document is ",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "FoundPlace.Village",
+        "in": "formData",
+        "description": "Village where the found document is",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "Comment",
+        "in": "formData",
+        "description": "Additional comments or details",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "returnedToOwner",
+        "in": "formData",
+        "description": "Whether the document have returned to the owner of it ",
+        "required": false,
+        "type": "boolean",
+        "default": false
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "found document updated successfully."
+      },
+      "401": {
+        "description": "Invalid credentials"
+      }
+    }
+  }
 },
 "/foundDocuments":{
   "get":{
