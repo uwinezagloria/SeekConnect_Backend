@@ -1484,6 +1484,11 @@
         "otpVerified": {
           "type": "boolean",
           "default": false
+        },
+        "role":{
+          "enum":["admin","user"],
+          "type":"string",
+          "default":"user"
         }
       },
       "required": [
@@ -1491,7 +1496,8 @@
         "LastName",
         "Email",
         "Password",
-        "ConfirmPassword"
+        "ConfirmPassword",
+        "role"
       ]
     },
     "Otp": {
