@@ -28,7 +28,8 @@ type:String
    },
     role:{
       enum:['admin','user'],
-      type:String
+      type:String,
+      default:"user"
     }
 
 })
