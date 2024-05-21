@@ -16,6 +16,7 @@ import { searchDocumentsAndPersons } from "../controllers/search.controller.js";
 import { filterByCategory } from '../controllers/filter.controller.js'; 
 import upload from "../middlewares/multer.js";
 import { deleteFoundDocument, getAllFoundDocument, getFoundDocument, postFoundDocument, updateFoundDocument } from "../controllers/foundDocument.controller.js";
+import { PostFoundMissingPerson, deleteFoundMissingPerson, getAllFoundMissingPeople, getFoundMissingPerson, updateFoundMissingPerson } from "../controllers/foundMissingPerson.controller.js";
 const router=express.Router()
 //signUp && signIn route
 router.route("/signUp").post(signUpValidation,signUp)
@@ -49,4 +50,10 @@ router.route("/foundDocument").patch(upload.single('file'),updateFoundDocument)
 router.route("/foundDocuments").get(getAllFoundDocument)
 router.route("/foundDocument").get(getFoundDocument)
 router.route("/foundDocument").delete(deleteFoundDocument)
+//Found Missing Person route
+router.route("/foundMissingPerson").post(upload.single('file'),PostFoundMissingPerson)
+router.route("/foundMissingPerson").patch(upload.single('file'),updateFoundMissingPerson)
+router.route("/foundMissingPerson").get(getFoundMissingPerson)
+router.route("/foundMissingPerson").delete(deleteFoundMissingPerson)
+router.route("/foundMissingPeople").get(getAllFoundMissingPeople)
 export default router 

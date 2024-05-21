@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 const personSchema=new mongoose.Schema({
     UserId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:SignUp
+        ref:'SignUp'
     },
 FirstName:{
     type:String
@@ -19,15 +19,23 @@ Race:{
         type:String
     },
     Age:{
-        type:string
+        type:String
     },
    Photo: {
-type:Buffer
+public_id:{
+    type:String
+},
+asset_id:{
+    type:String
+},
+url:{
+    type:String
+}
     },
-    LostDate:{
-        type:Date
+    FoundDate:{
+        type:String
     },
-    LostPlace:{
+    FoundPlace:{
         Country: {
             type:String
                 },
@@ -50,6 +58,10 @@ type:Buffer
     Comment:{
         type:String
     },
+    ReturnedToOwner:{
+        type:Boolean,
+        default:false
+    }
 })
 const foundMissingPersonModel=mongoose.model("foundPerson",personSchema)
 export default foundMissingPersonModel
