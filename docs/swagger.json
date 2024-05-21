@@ -321,7 +321,7 @@
 }
 },
 "/user":{
-  "/get":{
+  "get":{
     "summary": "get a user by his/her id ",
     "description": "get one use according to his/her id ",
     "tags": ["User"],
