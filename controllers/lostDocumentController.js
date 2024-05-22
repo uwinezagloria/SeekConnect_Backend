@@ -2,6 +2,7 @@ import asyncWrapper from "../middlewares/async.js";
 import { validationResult } from 'express-validator'
 import customError from "../middlewares/customError.js";
 import lostDocumentModel from "../models/lostDocument.models.js";
+import userModel from "../models/user.models.js";
 //controller for lost documents
 export const createLostDocument = asyncWrapper(async (req, res, next) => {
     //validate
@@ -9,6 +10,12 @@ export const createLostDocument = asyncWrapper(async (req, res, next) => {
     if (!error.isEmpty()) {
         return next(new customError("Bad Request", 403))
     }
+    //check if userId provided is for the user in database
+    const user = await userModel.findById({ _id: req.body.userId })
+    if (!user) {
+        return next(new customError(" No user with id ${req.body.id}", 404))
+    }
+
     //create lostDocument
     const document = await lostDocumentModel.create(req.body)
     res.status(201).json({

@@ -6,50 +6,58 @@ import { validationResult } from "express-validator";
 import cloudinary from "../utils/cloudinary.js";
 //POST A MISSING PERSON
 export const postMissingPerson = asyncWrapper(async (req, res, next) => {
-    try {
-        //create post for missing person
-        const result = await cloudinary.uploader.upload(req.file.path, function (err, result) {
-            if (err) {
-                console.log(err.message)
-                return res.status(500).json({ message: "error" })
-            }
-        })
-        const newPerson = new missingPersonModel({
-            UserId: req.body.UserId,
-            FirstName: req.body.FirstName,
-            LastName: req.body.LastName,
-            Race: req.body.Race,
-            CountryOfOrigin: req.body.CountryOfOrigin,
-            Age: req.body.Age,
-            Photo: {
-                public_id: result.public_id,
-                url: result.secure_url,
-                asset_id: result.asset_id
-            },
-            LostDate: req.body.LostDate,
-            LostPlace: {
-                Country: req.body['LostPlace.Country'],
-                District: req.body['LostPlace.District'],
-                Sector: req.body['LostPlace.Sector'],
-                Cell: req.body['LostPlace.Cell'],
-                Village: req.body['LostPlace.Village']
-            },
-            Comment: req.body.Comment,
-            Found: req.body.Found
-        });
-        //save post to database
-        const saveUser = await newPerson.save()
-        if (!saveUser) {
-            return next(new customError("something went wrong!please try again", 500))
+
+    //validate
+    const error = validationResult(req)
+    if (!error.isEmpty()) {
+        return next(new customError("Bad Request", 403))
+        console.log(error)
+    }
+    //check if userId provided is for the user in database
+    const user = await userModel.findById({ _id: req.body.userId })
+    if (!user) {
+        return next(new customError(" No user with id ${req.body.id}", 404))
+    }
+    //create post for missing person
+    const result = await cloudinary.uploader.upload(req.file.path, function (err, result) {
+        if (err) {
+            console.log(err.message)
+            return res.status(500).json({ message: "error" })
         }
-        res.status(201).json({
-            message: "missing person posted successfully",
-            person: saveUser
-        })
+    })
+    const newPerson = new missingPersonModel({
+        UserId: req.body.UserId,
+        FirstName: req.body.FirstName,
+        LastName: req.body.LastName,
+        Race: req.body.Race,
+        CountryOfOrigin: req.body.CountryOfOrigin,
+        Age: req.body.Age,
+        Photo: {
+            public_id: result.public_id,
+            url: result.secure_url,
+            asset_id: result.asset_id
+        },
+        LostDate: req.body.LostDate,
+        LostPlace: {
+            Country: req.body['LostPlace.Country'],
+            District: req.body['LostPlace.District'],
+            Sector: req.body['LostPlace.Sector'],
+            Cell: req.body['LostPlace.Cell'],
+            Village: req.body['LostPlace.Village']
+        },
+        Comment: req.body.Comment,
+        Found: req.body.Found
+    });
+    //save post to database
+    const saveUser = await newPerson.save()
+    if (!saveUser) {
+        return next(new customError("something went wrong!please try again", 500))
     }
-    catch (error) {
-        console.log(error.message)
-    }
+    res.status(201).json({
+        message: "missing person posted successfully",
+        person: saveUser
+    })
+
 })
 
 // get all missing people
@@ -119,10 +127,10 @@ export const removeMissingPerson = asyncWrapper(async (req, res, next) => {
     })
 })
 //get a missing Person
-export const getMissingperson=asyncWrapper(async(req,res,next)=>{
-    const getOne=await missingPersonModel.findById({_id:req.query.id})
+export const getMissingperson = asyncWrapper(async (req, res, next) => {
+    const getOne = await missingPersonModel.findById({ _id: req.query.id })
     res.status(200).json({
-        message:"missing person",
-missedOne:getOne
+        message: "missing person",
+        missedOne: getOne
     })
 })

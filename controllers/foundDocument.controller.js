@@ -6,6 +6,11 @@ import cloudinary from "../utils/cloudinary.js";
 //post a found document
 export const postFoundDocument = asyncWrapper(async (req, res, next) => {
     try {
+         //check if userId provided is for the user in database
+     const user=await userModel.findById({_id:req.body.userId})
+     if(!user){
+       return next(new customError(" No user with id ${req.body.id}",404))
+      }
         const result = await cloudinary.uploader.upload(req.file.path, function (err, result) {
             if (err) {
                 console.log(err)
