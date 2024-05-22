@@ -27,7 +27,7 @@ type:String
     default:false
    },
     role:{
-      enum:['admin','user'],
+      enum:["admin","user"],
       type:String,
       default:"user"
     }
