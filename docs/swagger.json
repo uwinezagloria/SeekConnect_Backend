@@ -1702,8 +1702,7 @@
         "LostDate",
         "LostPlace"
       ]
-    }
-  },
+    },
   "Place": {
     "type": "object",
     "properties": {
@@ -1759,3 +1758,4 @@
     ]
   }
   }
+}
