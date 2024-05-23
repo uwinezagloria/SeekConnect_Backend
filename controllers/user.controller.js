@@ -135,7 +135,7 @@ export const login = asyncWrapper(async (req, res, next) => {
 
         res.status(200).json({
             message: "user login successfully",
-                 email: req.boy.email,
+             email: req.body.Email,
         role:user.role,
             token: token
         });
