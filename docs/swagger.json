@@ -164,8 +164,7 @@
         ],
         "parameters": [
           {
-            "in": "path",
-            "name": "body",
+          
             "schema": {
               "$ref": "#/definitions/ContactUs"
             },
@@ -304,8 +303,6 @@
         ],
         "parameters": [
           {
-            "in": "path",
-            "name": "url",
             "schema": {
               "$ref": "#/definitions/User"
             },
@@ -642,8 +639,7 @@
         ],
         "parameters": [
           {
-            "in": "path",
-            "name": "body",
+          
             "schema": {
               "$ref": "#/definitions/LostDocument"
             },
@@ -1025,8 +1021,6 @@
         ],
         "parameters": [
           {
-            "in": "path",
-            "name": "url",
             "required": true,
             "description": "User credentials"
           }
@@ -1366,8 +1360,6 @@
         ],
         "parameters": [
           {
-            "in": "path",
-            "name": "url",
             "required": true,
             "description": "User credentials"
           }
@@ -1737,8 +1729,7 @@
       ],
       "parameters": [
         {
-          "in": "path",
-          "name": "url",
+        
           "required": true,
           "description": "list of all missing people"
         }
