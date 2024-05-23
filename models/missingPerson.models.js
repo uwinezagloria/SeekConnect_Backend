@@ -22,14 +22,14 @@ const personSchema = new mongoose.Schema({
         type: Number
     },
     Photo: {
-        public_id:{
-            type:String
+        public_id: {
+            type: String
         },
-        url:{
-            type:String
+        url: {
+            type: String
         },
-        asset_id:{
-            type:String
+        asset_id: {
+            type: String
         }
     },
     LostDate: {
@@ -37,22 +37,28 @@ const personSchema = new mongoose.Schema({
     },
     LostPlace: {
         Country: {
-            type: String
+            type: String,
+            required: true
         },
         Province: {
-            type: String
+            type: String,
+            required: true
         },
         District: {
-            type: String
+            type: String,
+            required: true
         },
         Sector: {
-            type: String
+            type: String,
+            required: true
         },
         Cell: {
-            type: String
+            type: String,
+            required: true
         },
         Village: {
-            type: String
+            type: String,
+            required: true
         }
     },
     Comment: {

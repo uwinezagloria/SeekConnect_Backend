@@ -5,73 +5,98 @@
     "description": "API documentation for SeekConnect ",
     "version": "1.0.0"
   },
-"host":"seekconnect-backend-1.onrender.com",
+  "host": "seekconnect-backend-1.onrender.com",
   "basePath": "",
   "schemes": [
     "https",
     "http"
   ],
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "headers",
+      "description": "Enter your JWT token in the format 'Bearer {token}'"
+    }
+  },
   "paths": {
-  "/filter": {
-    "post": {
-      "summary": "Filter by category",
-      "description": "Filter documents and persons by category.",
-      "tags": ["Filter"],
-      "parameters": [
-        {
-          "in": "body",
-          "name": "body",
-          "schema": {
-            "type": "object",
-            "properties": {
-              "category": {
-                "type": "string",
-                "description": "The category to filter by.",
-                "enum": ["LostDocument", "MissingPerson"]
+    "/filter": {
+      "post": {
+        "summary": "Filter by category",
+        "description": "Filter documents and persons by category.",
+        "tags": [
+          "Filter"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "description": "The category to filter by.",
+                  "enum": [
+                    "LostDocument",
+                    "MissingPerson"
+                  ]
+                }
               }
-            }
-          },
-          "required": true,
-          "description": "Filter input"
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "Filter results returned successfully.",
-          "schema": {
-            "type": "object",
-            "properties": {
-              "status": {
-                "type": "string",
-                "example": "success"
-              },
-              "results": {
-                "type": "integer",
-                "description": "Number of results returned"
-              },
-              "data": {
-                "type": "array",
-                "items": {
-                  "type": "object"
+            },
+            "required": true,
+            "description": "Filter input"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Filter results returned successfully.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "results": {
+                  "type": "integer",
+                  "description": "Number of results returned"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad request. Category is required or invalid."
+          },
+          "500": {
+            "description": "Internal server error."
           }
-        },
-        "400": {
-          "description": "Bad request. Category is required or invalid."
-        },
-        "500": {
-          "description": "Internal server error."
         }
       }
-    }
-  },
+    },
     "/search": {
       "post": {
         "summary": "Search documents and persons",
         "description": "Search for documents and persons by name.",
-        "tags": ["Search"],
+        "tags": [
+          "Search"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "body",
@@ -106,7 +131,9 @@
       "post": {
         "summary": "Add  a countact Us ",
         "description": "Add  a countact Us",
-        "tags": ["ContactUs"],
+        "tags": [
+          "ContactUs"
+        ],
         "parameters": [
           {
             "in": "body",
@@ -127,7 +154,14 @@
       "get": {
         "summary": "get  countact Us ",
         "description": "get all   countacted Us",
-        "tags": ["ContactUs"],
+        "tags": [
+          "ContactUs"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -148,7 +182,9 @@
       "patch": {
         "summary": "Update  countact Us ",
         "description": "update   countacted Us",
-        "tags": ["ContactUs"],
+        "tags": [
+          "ContactUs"
+        ],
         "parameters": [
           {
             "in": "query",
@@ -178,7 +214,9 @@
       "delete": {
         "summary": "remove  countact Us ",
         "description": "remove   countacted Us",
-        "tags": ["ContactUs"],
+        "tags": [
+          "ContactUs"
+        ],
         "parameters": [
           {
             "in": "query",
@@ -201,7 +239,14 @@
       "get": {
         "summary": "get  a countact Us  by email",
         "description": "get   a countact Us for a provided email",
-        "tags": ["ContactUs"],
+        "tags": [
+          "ContactUs"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -224,7 +269,9 @@
       "post": {
         "summary": "Create account ",
         "description": "Create a new account on SeekConnect ",
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "in": "body",
@@ -243,132 +290,168 @@
         }
       }
     },
-    "/users":{
-"get":{
-  "summary": "get all users who created account ",
-  "description": "list of all users of SeekConnect ",
-  "tags": ["User"],
-  "parameters": [
-    {
-      "in": "path",
-      "name": "url",
-      "schema": {
-        "$ref": "#/definitions/User"
+    "/users": {
+      "get": {
+        "summary": "get all users who created account ",
+        "description": "list of all users of SeekConnect ",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "url",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "required": true,
+            "description": "User object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "users got successfully"
+          }
+        }
       },
-      "required": true,
-      "description": "User object"
-    }
-  ],
-  "responses": {
-    "201": {
-      "description": "users got successfully"
-    }
-  }
-},
-  "patch":{
-    "summary": "update user account ",
-    "description": "update user account ",
-    "tags": ["User"],
-    "parameters": [
-      {
-        "in": "query",
-        "name": "id",
-        "schema": {
-          "$ref": "#/definitions/User"
-        },
-        "required": true,
-        "description": "User object"
+      "patch": {
+        "summary": "update user account ",
+        "description": "update user account ",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "required": true,
+            "description": "User object"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "required": true,
+            "description": "User object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Account updated successfully"
+          }
+        }
+      }
+    },
+    "/users/role": {
+      "get": {
+        "summary": "get all users according to their role  ",
+        "description": "list of all users of SeekConnect  classified according to their role",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "role",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "required": true,
+            "description": "User object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "users got successfully"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "get a user by his/her id ",
+        "description": "get one use according to his/her id ",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "required": true,
+            "description": "User object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "user got successfully"
+          }
+        }
       },
-      {
-        "in": "body",
-        "name": "body",
-        "schema": {
-          "$ref": "#/definitions/User"
-        },
-        "required": true,
-        "description": "User object"
+      "delete": {
+        "summary": "delete  user account  by his/her id",
+        "description": "delete an account of the user  using id",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "$ref": "#/definitions/User"
+            },
+            "required": true,
+            "description": "User object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "users deleted successfully"
+          }
+        }
       }
-    ],
-    "responses": {
-      "201": {
-        "description": "Account updated successfully"
-      }
-    }
-  }
-}
-,
-"/users/role":{
-  "get":{
-    "summary": "get all users according to their role  ",
-    "description": "list of all users of SeekConnect  classified according to their role",
-    "tags": ["User"],
-    "parameters": [
-      {
-        "in": "query",
-        "name": "role",
-        "schema": {
-          "$ref": "#/definitions/User"
-        },
-        "required": true,
-        "description": "User object"
-      }
-    ],
-    "responses": {
-      "201": {
-        "description": "users got successfully"
-      }
-    } 
-}
-},
-"/user":{
-  "get":{
-    "summary": "get a user by his/her id ",
-    "description": "get one use according to his/her id ",
-    "tags": ["User"],
-    "parameters": [
-      {
-        "in": "query",
-        "name": "id",
-        "schema": {
-          "$ref": "#/definitions/User"
-        },
-        "required": true,
-        "description": "User object"
-      }
-    ],
-    "responses": {
-      "201": {
-        "description": "user got successfully"
-      }
-    }
-  },
-  "delete":{
-    "summary": "delete  user account  by his/her id",
-    "description": "delete an account of the user  using id",
-    "tags": ["User"],
-    "parameters": [
-      {
-        "in": "query",
-        "name": "id",
-        "schema": {
-          "$ref": "#/definitions/User"
-        },
-        "required": true,
-        "description": "User object"
-      }
-    ],
-    "responses": {
-      "201": {
-        "description": "users deleted successfully"
-      }
-    }
-  }
-},
+    },
     "/otp-verify": {
       "post": {
         "summary": "verify account ",
         "description": "verify your  account on SeekConnect ",
-        "tags": ["verification"],
+        "tags": [
+          "verification"
+        ],
         "parameters": [
           {
             "in": "body",
@@ -391,7 +474,9 @@
       "post": {
         "summary": "Login user",
         "description": "Authenticate and login user",
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "parameters": [
           {
             "in": "body",
@@ -417,7 +502,9 @@
       "post": {
         "summary": "Reset Password",
         "description": " user reset new Password ",
-        "tags": ["resetPassword"],
+        "tags": [
+          "resetPassword"
+        ],
         "parameters": [
           {
             "in": "body",
@@ -443,7 +530,14 @@
       "post": {
         "summary": "Post A lost Document",
         "description": " post your lost document",
-        "tags": ["LostDocument"],
+        "tags": [
+          "LostDocument"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "body",
@@ -467,7 +561,14 @@
       "patch": {
         "summary": "update A lost Document",
         "description": " update  lost document",
-        "tags": ["LostDocument"],
+        "tags": [
+          "LostDocument"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -500,7 +601,14 @@
       "delete": {
         "summary": "delete lost Document",
         "description": " delete   lost document",
-        "tags": ["LostDocument"],
+        "tags": [
+          "LostDocument"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -524,7 +632,14 @@
       "get": {
         "summary": "get lost Documents",
         "description": " get all  lost documents",
-        "tags": ["LostDocument"],
+        "tags": [
+          "LostDocument"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -550,7 +665,14 @@
       "post": {
         "summary": "Create a missing person",
         "description": "Submit details about a missing person.",
-        "tags": ["MissingPerson"],
+        "tags": [
+          "MissingPerson"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "file",
@@ -688,7 +810,14 @@
       "patch": {
         "summary": "update a missing person",
         "description": "updating  missing person.",
-        "tags": ["MissingPerson"],
+        "tags": [
+          "MissingPerson"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -833,7 +962,9 @@
       "get": {
         "summary": "Get one missing person by his/her id",
         "description": "Get one missing person by his/her id.",
-        "tags": ["MissingPerson"],
+        "tags": [
+          "MissingPerson"
+        ],
         "parameters": [
           {
             "in": "query",
@@ -851,11 +982,17 @@
           }
         }
       },
-      
       "delete": {
         "summary": "Remove a missing person",
         "description": "Delete a specific missing person record.",
-        "tags": ["MissingPerson"],
+        "tags": [
+          "MissingPerson"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -874,11 +1011,18 @@
         }
       }
     },
-    "/missingPeople":{
+    "/missingPeople": {
       "get": {
         "summary": "Get all missing people",
         "description": "list of all missing people",
-        "tags": ["MissingPerson"],
+        "tags": [
+          "MissingPerson"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "path",
@@ -897,664 +1041,718 @@
         }
       }
     },
-"/foundDocument":{
-  "post":{
-    "summary": "post a found document ",
-    "description": "Submit details about found document",
-    "tags": ["FoundLostDocument"],
-    "parameters": [
-      {
-        "name": "file",
-        "in": "formData",
-        "description": "The photo of found document",
-        "required": true,
-        "type": "file"
+    "/foundDocument": {
+      "post": {
+        "summary": "post a found document ",
+        "description": "Submit details about found document",
+        "tags": [
+          "FoundLostDocument"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "The photo of found document",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "UserId",
+            "in": "formData",
+            "description": "ID of the user reporting the missing person",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "DocumentType",
+            "in": "formData",
+            "description": "type of found document",
+            "enum": [
+              "Drivers License",
+              "National Id Card",
+              "Health Insurance Card",
+              "Refugee Identity Document",
+              "Othe Form Of Identity"
+            ],
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "NameOnDocument",
+            "in": "formData",
+            "description": "Name that are on foundDcoument",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "PlaceOfIssueOnDocument",
+            "in": "formData",
+            "description": "place of issue that is on the found Document",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundDate",
+            "in": "formData",
+            "description": "the date you found the lost document",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Country",
+            "in": "formData",
+            "description": "Country where you that found document is",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Province",
+            "in": "formData",
+            "description": "Province where  found document is ",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.District",
+            "in": "formData",
+            "description": "District where the found document is",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Sector",
+            "in": "formData",
+            "description": "Sector where the found document is",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Cell",
+            "in": "formData",
+            "description": "Cell where the found document is ",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Village",
+            "in": "formData",
+            "description": "Village where the found document is",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Comment",
+            "in": "formData",
+            "description": "Additional comments or details",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "returnedToOwner",
+            "in": "formData",
+            "description": "Whether the document have returned to the owner of it ",
+            "required": false,
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "found document posted successfully."
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
       },
-      {
-        "name": "UserId",
-        "in": "formData",
-        "description": "ID of the user reporting the missing person",
-        "required": true,
-        "type": "string"
+      "get": {
+        "summary": "Get  found document",
+        "description": "get found document by id",
+        "tags": [
+          "FoundLostDocument"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "details found document returned."
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
       },
-      {
-        "name": "DocumentType",
-        "in": "formData",
-        "description":"type of found document",
-        "enum":["Drivers License","National Id Card","Health Insurance Card","Refugee Identity Document","Othe Form Of Identity"],
-        "required": true,
-        "type": "string"
+      "delete": {
+        "summary": "delete found document",
+        "description": "delete found document by id",
+        "tags": [
+          "FoundLostDocument"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": " found document deleted."
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
       },
-      {
-        "name": "NameOnDocument",
-        "in": "formData",
-        "description": "Name that are on foundDcoument",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "PlaceOfIssueOnDocument",
-        "in": "formData",
-        "description": "place of issue that is on the found Document",
-        "required": true,
-        "type": "string"
-        
-      },
-      {
-        "name": "FoundDate",
-        "in": "formData",
-        "description": "the date you found the lost document",
-        "required": true,
-        "type": "string"
-      },
-
-      {
-        "name": "FoundPlace.Country",
-        "in": "formData",
-        "description": "Country where you that found document is",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "FoundPlace.Province",
-        "in": "formData",
-        "description": "Province where  found document is ",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "FoundPlace.District",
-        "in": "formData",
-        "description": "District where the found document is",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "FoundPlace.Sector",
-        "in": "formData",
-        "description": "Sector where the found document is",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "FoundPlace.Cell",
-        "in": "formData",
-        "description": "Cell where the found document is ",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "FoundPlace.Village",
-        "in": "formData",
-        "description": "Village where the found document is",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "Comment",
-        "in": "formData",
-        "description": "Additional comments or details",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "returnedToOwner",
-        "in": "formData",
-        "description": "Whether the document have returned to the owner of it ",
-        "required": false,
-        "type": "boolean",
-        "default": false
+      "patch": {
+        "summary": "update a found document ",
+        "description": "Submit details about found document",
+        "tags": [
+          "FoundLostDocument"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id of the found document you want to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "The photo of found document",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "UserId",
+            "in": "formData",
+            "description": "ID of the user reporting the found document",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "DocumentType",
+            "in": "formData",
+            "description": "type of found document",
+            "enum": [
+              "Drivers License",
+              "National Id Card",
+              "Health Insurance Card",
+              "Refugee Identity Document",
+              "Othe Form Of Identity"
+            ],
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "NameOnDocument",
+            "in": "formData",
+            "description": "Name that are on foundDcoument",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "PlaceOfIssueOnDocument",
+            "in": "formData",
+            "description": "place of issue that is on the found Document",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundDate",
+            "in": "formData",
+            "description": "the date you found the lost document",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Country",
+            "in": "formData",
+            "description": "Country where you that found document is",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Province",
+            "in": "formData",
+            "description": "Province where  found document is ",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.District",
+            "in": "formData",
+            "description": "District where the found document is",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Sector",
+            "in": "formData",
+            "description": "Sector where the found document is",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Cell",
+            "in": "formData",
+            "description": "Cell where the found document is ",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Village",
+            "in": "formData",
+            "description": "Village where the found document is",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Comment",
+            "in": "formData",
+            "description": "Additional comments or details",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "returnedToOwner",
+            "in": "formData",
+            "description": "Whether the document have returned to the owner of it ",
+            "required": false,
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "found document updated successfully."
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
       }
-    ],
-    "responses": {
-      "200": {
-        "description": "found document posted successfully."
-      },
-      "401": {
-        "description": "Invalid credentials"
+    },
+    "/foundDocuments": {
+      "get": {
+        "summary": "Get all found documents",
+        "description": "list of all found document",
+        "tags": [
+          "FoundLostDocument"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "url",
+            "required": true,
+            "description": "User credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "details found documents returned."
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
       }
-    }
-  } ,
-  "get":{
-    "summary": "Get  found document",
-    "description": "get found document by id",
-    "tags": ["FoundLostDocument"],
-    "parameters": [
-      {
-        "in": "query",
-        "name": "id",
-        "required": true,
-        "description": "User credentials"
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "details found document returned."
+    },
+    "/foundMissingPerson": {
+      "post": {
+        "summary": "Create a missing person",
+        "description": "Submit details about a found person.",
+        "tags": [
+          "FoundMissingPerson"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "The photo of the found person",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "UserId",
+            "in": "formData",
+            "description": "ID of the user reporting the found person",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FirstName",
+            "in": "formData",
+            "description": "First name of the found person",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "LastName",
+            "in": "formData",
+            "description": "Last name of the found person",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Race",
+            "in": "formData",
+            "description": "Race of the found person",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "Caucasian/White",
+              "African/Black",
+              "Asian",
+              "Native American/Indigenous",
+              "Pacific Islander",
+              "Mixed Race/Multiracial",
+              "Other"
+            ]
+          },
+          {
+            "name": "CountryOfOrigin",
+            "in": "formData",
+            "description": "Country of origin of the found  person",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Age",
+            "in": "formData",
+            "description": "Age of the found  person",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "FoundDate",
+            "in": "formData",
+            "description": "the date you found the  person",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Country",
+            "in": "formData",
+            "description": "Country where you that found person is",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Province",
+            "in": "formData",
+            "description": "Province where  found person is ",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.District",
+            "in": "formData",
+            "description": "District where the found person is",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Sector",
+            "in": "formData",
+            "description": "Sector where the found person is",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Cell",
+            "in": "formData",
+            "description": "Cell where the found person is ",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Village",
+            "in": "formData",
+            "description": "Village where the found person is",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Comment",
+            "in": "formData",
+            "description": "Additional comments or details",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "returnedToOwner",
+            "in": "formData",
+            "description": "Whether the person have returned to the owner  ",
+            "required": false,
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "found missed person posted successfully."
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
       },
-      "401": {
-        "description": "Invalid credentials"
+      "get": {
+        "summary": "Get one found missed person",
+        "description": "Get one found missed person by his/her id",
+        "tags": [
+          "FoundMissingPerson"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "description": "missing person credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "details found person "
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete one found missed person",
+        "description": "delete one found missed person by his/her id",
+        "tags": [
+          "FoundMissingPerson"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "description": "missing person credentials"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deleted found person  successfully"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      },
+      "patch": {
+        "summary": "update a missing person by his/her id",
+        "description": "update a missing person by his/her id",
+        "tags": [
+          "FoundMissingPerson"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "The id  of the found  missed person",
+            "required": true
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "The photo of the found person",
+            "required": false,
+            "type": "file"
+          },
+          {
+            "name": "UserId",
+            "in": "formData",
+            "description": "ID of the user reporting the found person",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FirstName",
+            "in": "formData",
+            "description": "First name of the found person",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "LastName",
+            "in": "formData",
+            "description": "Last name of the found person",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Race",
+            "in": "formData",
+            "description": "Race of the found person",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "Caucasian/White",
+              "African/Black",
+              "Asian",
+              "Native American/Indigenous",
+              "Pacific Islander",
+              "Mixed Race/Multiracial",
+              "Other"
+            ]
+          },
+          {
+            "name": "CountryOfOrigin",
+            "in": "formData",
+            "description": "Country of origin of the found  person",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Age",
+            "in": "formData",
+            "description": "Age of the found  person",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "FoundDate",
+            "in": "formData",
+            "description": "the date you found the  person",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Country",
+            "in": "formData",
+            "description": "Country where you that found person is",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Province",
+            "in": "formData",
+            "description": "Province where  found person is ",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.District",
+            "in": "formData",
+            "description": "District where the found person is",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Sector",
+            "in": "formData",
+            "description": "Sector where the found person is",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Cell",
+            "in": "formData",
+            "description": "Cell where the found person is ",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "FoundPlace.Village",
+            "in": "formData",
+            "description": "Village where the found person is",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Comment",
+            "in": "formData",
+            "description": "Additional comments or details",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "returnedToOwner",
+            "in": "formData",
+            "description": "Whether the person have returned to the owner  ",
+            "required": false,
+            "type": "boolean",
+            "default": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "found missed person posted successfully."
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/foundMissingPeople": {
+      "summary": "Get all found missed people",
+      "description": "Get all found missed person ",
+      "tags": [
+        "FoundMissingPerson"
+      ],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "url",
+          "required": true,
+          "description": "list of all missing people"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": " found missed people"
+        },
+        "401": {
+          "description": "Invalid credentials"
+        }
       }
     }
   },
-  "delete":{
-    "summary": "delete found document",
-    "description": "delete found document by id",
-    "tags": ["FoundLostDocument"],
-    "parameters": [
-      {
-        "in": "query",
-        "name": "id",
-        "required": true,
-        "description": "User credentials"
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": " found document deleted."
-      },
-      "401": {
-        "description": "Invalid credentials"
-      }
-    }
-  },
-  "patch" :{
-    "summary": "update a found document ",
-    "description": "Submit details about found document",
-    "tags": ["FoundLostDocument"],
-    "parameters": [
-      {
-        "name": "id",
-        "in": "query",
-        "description": "id of the found document you want to update",
-        "required": true,
-        "type":"string"
-      },
-      {
-        "name": "file",
-        "in": "formData",
-        "description": "The photo of found document",
-        "required": false,
-        "type": "file"
-      },
-      {
-        "name": "UserId",
-        "in": "formData",
-        "description": "ID of the user reporting the found document",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "DocumentType",
-        "in": "formData",
-        "description":"type of found document",
-        "enum":["Drivers License","National Id Card","Health Insurance Card","Refugee Identity Document","Othe Form Of Identity"],
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "NameOnDocument",
-        "in": "formData",
-        "description": "Name that are on foundDcoument",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "PlaceOfIssueOnDocument",
-        "in": "formData",
-        "description": "place of issue that is on the found Document",
-        "required": false,
-        "type": "string"
-        
-      },
-      {
-        "name": "FoundDate",
-        "in": "formData",
-        "description": "the date you found the lost document",
-        "required": false,
-        "type": "string"
-      },
-
-      {
-        "name": "FoundPlace.Country",
-        "in": "formData",
-        "description": "Country where you that found document is",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "FoundPlace.Province",
-        "in": "formData",
-        "description": "Province where  found document is ",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "FoundPlace.District",
-        "in": "formData",
-        "description": "District where the found document is",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "FoundPlace.Sector",
-        "in": "formData",
-        "description": "Sector where the found document is",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "FoundPlace.Cell",
-        "in": "formData",
-        "description": "Cell where the found document is ",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "FoundPlace.Village",
-        "in": "formData",
-        "description": "Village where the found document is",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "Comment",
-        "in": "formData",
-        "description": "Additional comments or details",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "returnedToOwner",
-        "in": "formData",
-        "description": "Whether the document have returned to the owner of it ",
-        "required": false,
-        "type": "boolean",
-        "default": false
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "found document updated successfully."
-      },
-      "401": {
-        "description": "Invalid credentials"
-      }
-    }
-  }
-},
-"/foundDocuments":{
-  "get":{
-    "summary": "Get all found documents",
-    "description": "list of all found document",
-    "tags": ["FoundLostDocument"],
-    "parameters": [
-      {
-        "in": "path",
-        "name": "url",
-        "required": true,
-        "description": "User credentials"
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "details found documents returned."
-      },
-      "401": {
-        "description": "Invalid credentials"
-      }
-    }
-  }
-},
-"/foundMissingPerson":{
-"post":{
-  "summary": "Create a missing person",
-  "description": "Submit details about a found person.",
-  "tags": ["FoundMissingPerson"],
-  "parameters": [
-    {
-      "name": "file",
-      "in": "formData",
-      "description": "The photo of the found person",
-      "required": true,
-      "type": "file"
-    },
-    {
-      "name": "UserId",
-      "in": "formData",
-      "description": "ID of the user reporting the found person",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "FirstName",
-      "in": "formData",
-      "description": "First name of the found person",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "LastName",
-      "in": "formData",
-      "description": "Last name of the found person",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "Race",
-      "in": "formData",
-      "description": "Race of the found person",
-      "required": true,
-      "type": "string",
-      "enum": [
-        "Caucasian/White",
-        "African/Black",
-        "Asian",
-        "Native American/Indigenous",
-        "Pacific Islander",
-        "Mixed Race/Multiracial",
-        "Other"
-      ]
-    },
-    {
-      "name": "CountryOfOrigin",
-      "in": "formData",
-      "description": "Country of origin of the found  person",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "Age",
-      "in": "formData",
-      "description": "Age of the found  person",
-      "required": true,
-      "type": "integer"
-    },
-    {
-      "name": "FoundDate",
-      "in": "formData",
-      "description": "the date you found the  person",
-      "required": true,
-      "type": "string"
-    },
-
-    {
-      "name": "FoundPlace.Country",
-      "in": "formData",
-      "description": "Country where you that found person is",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "FoundPlace.Province",
-      "in": "formData",
-      "description": "Province where  found person is ",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "FoundPlace.District",
-      "in": "formData",
-      "description": "District where the found person is",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "FoundPlace.Sector",
-      "in": "formData",
-      "description": "Sector where the found person is",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "FoundPlace.Cell",
-      "in": "formData",
-      "description": "Cell where the found person is ",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "FoundPlace.Village",
-      "in": "formData",
-      "description": "Village where the found person is",
-      "required": true,
-      "type": "string"
-    },
-    {
-      "name": "Comment",
-      "in": "formData",
-      "description": "Additional comments or details",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "returnedToOwner",
-      "in": "formData",
-      "description": "Whether the person have returned to the owner  ",
-      "required": false,
-      "type": "boolean",
-      "default": false
-    }
-  ],
-  "responses": {
-    "200": {
-      "description": "found missed person posted successfully."
-    },
-    "401": {
-      "description": "Invalid credentials"
-    }
-  }
-},
-"get":{
-  "summary": "Get one found missed person",
-  "description": "Get one found missed person by his/her id",
-  "tags": ["FoundMissingPerson"],
-  "parameters": [
-    {
-      "in": "query",
-      "name": "id",
-      "required": true,
-      "description": "missing person credentials"
-    }
-  ],
-  "responses": {
-    "200": {
-      "description": "details found person "
-    },
-    "401": {
-      "description": "Invalid credentials"
-    }
-  } 
-},
-"delete":{
-  "summary": "delete one found missed person",
-  "description": "delete one found missed person by his/her id",
-  "tags": ["FoundMissingPerson"],
-  "parameters": [
-    {
-      "in": "query",
-      "name": "id",
-      "required": true,
-      "description": "missing person credentials"
-    }
-  ],
-  "responses": {
-    "200": {
-      "description": "deleted found person  successfully"
-    },
-    "401": {
-      "description": "Invalid credentials"
-    }
-  }  
-},
-"patch":{
-  "summary": "update a missing person by his/her id",
-  "description": "update a missing person by his/her id",
-  "tags": ["FoundMissingPerson"],
-  "parameters": [
-    {
-      "name": "id",
-      "in": "query",
-      "description": "The id  of the found  missed person",
-      "required": true
-    },
-
-    {
-      "name": "file",
-      "in": "formData",
-      "description": "The photo of the found person",
-      "required": false,
-      "type": "file"
-    },
-    {
-      "name": "UserId",
-      "in": "formData",
-      "description": "ID of the user reporting the found person",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "FirstName",
-      "in": "formData",
-      "description": "First name of the found person",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "LastName",
-      "in": "formData",
-      "description": "Last name of the found person",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "Race",
-      "in": "formData",
-      "description": "Race of the found person",
-      "required": false,
-      "type": "string",
-      "enum": [
-        "Caucasian/White",
-        "African/Black",
-        "Asian",
-        "Native American/Indigenous",
-        "Pacific Islander",
-        "Mixed Race/Multiracial",
-        "Other"
-      ]
-    },
-    {
-      "name": "CountryOfOrigin",
-      "in": "formData",
-      "description": "Country of origin of the found  person",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "Age",
-      "in": "formData",
-      "description": "Age of the found  person",
-      "required": false,
-      "type": "integer"
-    },
-    {
-      "name": "FoundDate",
-      "in": "formData",
-      "description": "the date you found the  person",
-      "required": false,
-      "type": "string"
-    },
-
-    {
-      "name": "FoundPlace.Country",
-      "in": "formData",
-      "description": "Country where you that found person is",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "FoundPlace.Province",
-      "in": "formData",
-      "description": "Province where  found person is ",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "FoundPlace.District",
-      "in": "formData",
-      "description": "District where the found person is",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "FoundPlace.Sector",
-      "in": "formData",
-      "description": "Sector where the found person is",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "FoundPlace.Cell",
-      "in": "formData",
-      "description": "Cell where the found person is ",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "FoundPlace.Village",
-      "in": "formData",
-      "description": "Village where the found person is",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "Comment",
-      "in": "formData",
-      "description": "Additional comments or details",
-      "required": false,
-      "type": "string"
-    },
-    {
-      "name": "returnedToOwner",
-      "in": "formData",
-      "description": "Whether the person have returned to the owner  ",
-      "required": false,
-      "type": "boolean",
-      "default": false
-    }
-  ],
-  "responses": {
-    "200": {
-      "description": "found missed person posted successfully."
-    },
-    "401": {
-      "description": "Invalid credentials"
-    }
-  }
-}
-},
-"/foundMissingPeople":{
-  "summary": "Get all found missed people",
-  "description": "Get all found missed person ",
-  "tags": ["FoundMissingPerson"],
-  "parameters": [
-    {
-      "in": "path",
-      "name": "url",
-      "required": true,
-      "description": "list of all missing people"
-    }
-  ],
-  "responses": {
-    "200": {
-      "description": " found missed people"
-    },
-    "401": {
-      "description": "Invalid credentials"
-    }
-  } 
-}
-    },
-  
   "definitions": {
     "Filter": {
       "type": "object",
@@ -1562,10 +1760,15 @@
         "category": {
           "type": "string",
           "description": "The category to filter by.",
-          "enum": ["LostDocument", "MissingPerson"]
+          "enum": [
+            "LostDocument",
+            "MissingPerson"
+          ]
         }
       },
-      "required": ["category"]
+      "required": [
+        "category"
+      ]
     },
     "Search": {
       "type": "object",
@@ -1576,7 +1779,9 @@
           "example": "John Doe"
         }
       },
-      "required": ["name"]
+      "required": [
+        "name"
+      ]
     },
     "User": {
       "type": "object",
@@ -1606,10 +1811,13 @@
           "type": "boolean",
           "default": false
         },
-        "role":{
-          "enum":["admin","user"],
-          "type":"string",
-          "default":"user"
+        "role": {
+          "enum": [
+            "admin",
+            "user"
+          ],
+          "type": "string",
+          "default": "user"
         }
       },
       "required": [
@@ -1628,7 +1836,9 @@
           "type": "number"
         }
       },
-      "required": ["otp"]
+      "required": [
+        "otp"
+      ]
     },
     "Login": {
       "type": "object",
@@ -1640,7 +1850,10 @@
           "type": "string"
         }
       },
-      "required": ["Email", "Password"]
+      "required": [
+        "Email",
+        "Password"
+      ]
     },
     "ResetPassword": {
       "type": "object",
@@ -1655,7 +1868,11 @@
           "type": "string"
         }
       },
-      "required": ["Email", "Password", "ConfirmPassword"]
+      "required": [
+        "Email",
+        "Password",
+        "ConfirmPassword"
+      ]
     },
     "LostDocument": {
       "type": "object",
@@ -1703,59 +1920,59 @@
         "LostPlace"
       ]
     },
-  "Place": {
-    "type": "object",
-    "properties": {
-      "Country": {
-        "type": "string"
+    "Place": {
+      "type": "object",
+      "properties": {
+        "Country": {
+          "type": "string"
+        },
+        "Province": {
+          "type": "string"
+        },
+        "District": {
+          "type": "string"
+        },
+        "Sector": {
+          "type": "string"
+        },
+        "Cell": {
+          "type": "string"
+        },
+        "Village": {
+          "type": "string"
+        }
       },
-      "Province": {
-        "type": "string"
-      },
-      "District": {
-        "type": "string"
-      },
-      "Sector": {
-        "type": "string"
-      },
-      "Cell": {
-        "type": "string"
-      },
-      "Village": {
-        "type": "string"
-      }
+      "required": [
+        "Country",
+        "Province",
+        "District",
+        "Sector",
+        "Cell",
+        "Village"
+      ]
     },
-    "required": [
-      "Country",
-      "Province",
-      "District",
-      "Sector",
-      "Cell",
-      "Village"
-    ]
-  },
-  "ContactUs": {
-    "type": "object",
-    "properties": {
-      "Name": {
-        "type": "string"
+    "ContactUs": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Tel": {
+          "type": "string"
+        },
+        "Message": {
+          "type": "string"
+        }
       },
-      "Email": {
-        "type": "string"
-      },
-      "Tel": {
-        "type": "string"
-      },
-      "Message": {
-        "type": "string"
-      }
-    },
-    "required": [
-      "Name",
-      "Email",
-      "Tel",
-      "Message"
-    ]
-  }
+      "required": [
+        "Name",
+        "Email",
+        "Tel",
+        "Message"
+      ]
+    }
   }
 }
