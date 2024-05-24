@@ -38,27 +38,27 @@ const personSchema = new mongoose.Schema({
     LostPlace: {
         Country: {
             type: String,
-            required: true
+    
         },
         Province: {
             type: String,
-            required: true
+            
         },
         District: {
             type: String,
-            required: true
+            
         },
         Sector: {
             type: String,
-            required: true
+        
         },
         Cell: {
             type: String,
-            required: true
+        
         },
         Village: {
             type: String,
-            required: true
+
         }
     },
     Comment: {
