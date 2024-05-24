@@ -5,7 +5,7 @@
     "description": "API documentation for SeekConnect ",
     "version": "1.0.0"
   },
-  "host": "seekconnect-backend-1.onrender.com",
+  "host": "localhost:10000",
   "basePath": "",
   "schemes": [
     "https",

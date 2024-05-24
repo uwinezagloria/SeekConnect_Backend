@@ -1,5 +1,5 @@
 //found missing person controller
-
+import userModel from "../models/user.models.js";
 import asyncWrapper from "../middlewares/async.js";
 import customError from "../middlewares/customError.js";
 import foundMissingPersonModel from "../models/foundMissingPerson.models.js";
