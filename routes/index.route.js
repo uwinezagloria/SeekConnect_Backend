@@ -26,42 +26,42 @@ router.route("/otp-verify").post(verifyOtp)
 router.route("/login").post(loginValidation, login);
 router.route("/resetPassword").post(forgotPasswordValidation, resertNewPassword)
 //users
-router.route("/users").get(validateToken, onlyAdmin, getAllUser)
-router.route("/users/role").get(validateToken, onlyAdmin, getUserByRole)
-router.route("/user").get(validateToken, onlyAdmin, getUserById)
-router.route("users").patch(validateToken, updateUser)
-router.route("/user").delete(validateToken, deleteUser)
+router.route("/users").get( getAllUser)
+router.route("/users/role").get( getUserByRole)
+router.route("/user").get( getUserById)
+router.route("users").patch( updateUser)
+router.route("/user").delete( deleteUser)
 //LostDocument route
-router.route("/lost").post(validateToken, lostDocumentValidation, createLostDocument)
-router.route("/lost").get(validateToken, getLostDocuments)
-router.route("/lost").patch(validateToken, updateLostDocument)
-router.route("/lost").delete(validateToken, deleteLostDocument)
+router.route("/lost").post( lostDocumentValidation, createLostDocument)
+router.route("/lost").get( getLostDocuments)
+router.route("/lost").patch( updateLostDocument)
+router.route("/lost").delete( deleteLostDocument)
 //MissingPerson route,
-router.route("/missingPerson").post(validateToken, upload.single('file'), postMissingPerson)
-router.route("/missingPerson").patch(validateToken, upload.single('file'), updateMissingPerson)
-router.route("/missingPeople").get(validateToken, getMissingPeople)
-router.route("/missingPerson").get(validateToken, getMissingperson)
-router.route("/missingPerson").delete(validateToken, removeMissingPerson)
+router.route("/missingPerson").post(upload.single('file'), postMissingPerson)
+router.route("/missingPerson").patch(upload.single('file'), updateMissingPerson)
+router.route("/missingPeople").get(getMissingPeople)
+router.route("/missingPerson").get( getMissingperson)
+router.route("/missingPerson").delete( removeMissingPerson)
 //contact us route
 router.route("/contactUs").post(contactUsValidation, createContactUs)
-router.route("/contactUs").get(validateToken, onlyAdmin, getContactUs)
-router.route("/contactUs/email").get(validateToken, onlyAdmin, getContact)
+router.route("/contactUs").get( getContactUs)
+router.route("/contactUs/email").get( getContact)
 router.route("/contactUs").patch(updateContactUs)
 router.route("/contactUs").delete(deleteContactUs)
 // Search route
-router.route("/search").post(validateToken, onlyAdmin, searchDocumentsAndPersons);
+router.route("/search").post(searchDocumentsAndPersons);
 // Filter route
-router.route('/filter').get(validateToken, onlyAdmin, filterByCategory);
+router.route('/filter').get( filterByCategory);
 //Found Document route
-router.route("/foundDocument").post(validateToken, upload.single('file'), foundDocumentValidation, postFoundDocument)
-router.route("/foundDocument").patch(validateToken, upload.single('file'), updateFoundDocument)
+router.route("/foundDocument").post(upload.single('file'), foundDocumentValidation, postFoundDocument)
+router.route("/foundDocument").patch(upload.single('file'), updateFoundDocument)
 router.route("/foundDocuments").get(getAllFoundDocument)
 router.route("/foundDocument").get(getFoundDocument)
-router.route("/foundDocument").delete(validateToken, deleteFoundDocument)
+router.route("/foundDocument").delete(deleteFoundDocument)
 //Found Missing Person route
-router.route("/foundMissingPerson").post(validateToken, upload.single('file'), PostFoundMissingPerson)
-router.route("/foundMissingPerson").patch(validateToken, upload.single('file'), updateFoundMissingPerson)
+router.route("/foundMissingPerson").post(upload.single('file'), PostFoundMissingPerson)
+router.route("/foundMissingPerson").patch( upload.single('file'), updateFoundMissingPerson)
 router.route("/foundMissingPerson").get(getFoundMissingPerson)
-router.route("/foundMissingPerson").delete(validateToken, deleteFoundMissingPerson)
+router.route("/foundMissingPerson").delete(deleteFoundMissingPerson)
 router.route("/foundMissingPeople").get(getAllFoundMissingPeople)
 export default router 
