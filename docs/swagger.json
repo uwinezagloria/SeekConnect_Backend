@@ -27,11 +27,6 @@
         "tags": [
           "Filter"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
         "parameters": [
           {
             "in": "body",
@@ -92,11 +87,7 @@
         "tags": [
           "Search"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "in": "body",
@@ -157,11 +148,7 @@
         "tags": [
           "ContactUs"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "in": "path",
@@ -242,11 +229,7 @@
         "tags": [
           "ContactUs"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+      
         "parameters": [
           {
             "in": "query",
@@ -297,11 +280,7 @@
         "tags": [
           "User"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "in": "path",
@@ -325,11 +304,7 @@
         "tags": [
           "User"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+        
         "parameters": [
           {
             "in": "query",
@@ -364,11 +339,7 @@
         "tags": [
           "User"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "in": "query",
@@ -394,11 +365,7 @@
         "tags": [
           "User"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "in": "query",
@@ -422,11 +389,7 @@
         "tags": [
           "User"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "in": "query",
@@ -533,11 +496,7 @@
         "tags": [
           "LostDocument"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "in": "body",
@@ -564,11 +523,7 @@
         "tags": [
           "LostDocument"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "in": "query",
@@ -604,11 +559,7 @@
         "tags": [
           "LostDocument"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "in": "query",
@@ -635,11 +586,7 @@
         "tags": [
           "LostDocument"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+        
         "parameters": [
           {
             "in": "path",
@@ -668,11 +615,7 @@
         "tags": [
           "MissingPerson"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "name": "file",
@@ -813,11 +756,7 @@
         "tags": [
           "MissingPerson"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+        
         "parameters": [
           {
             "name": "id",
@@ -988,11 +927,7 @@
         "tags": [
           "MissingPerson"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+        
         "parameters": [
           {
             "in": "query",
@@ -1018,11 +953,7 @@
         "tags": [
           "MissingPerson"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "in": "path",
@@ -1048,11 +979,7 @@
         "tags": [
           "FoundLostDocument"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+        
         "parameters": [
           {
             "name": "file",
@@ -1199,11 +1126,7 @@
         "tags": [
           "FoundLostDocument"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "in": "query",
@@ -1227,11 +1150,7 @@
         "tags": [
           "FoundLostDocument"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+       
         "parameters": [
           {
             "name": "id",
@@ -1389,11 +1308,7 @@
         "tags": [
           "FoundMissingPerson"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+        
         "parameters": [
           {
             "name": "file",
@@ -1556,11 +1471,7 @@
         "tags": [
           "FoundMissingPerson"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+        
         "parameters": [
           {
             "in": "query",
@@ -1584,11 +1495,7 @@
         "tags": [
           "FoundMissingPerson"
         ],
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ],
+        
         "parameters": [
           {
             "name": "id",
