@@ -149,20 +149,15 @@
           "ContactUs"
         ],
        
-        "parameters": [
-          {
-            "in": "path",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/ContactUs"
-            },
-            "required": true,
-            "description": "contactUs object"
-          }
-        ],
         "responses": {
-          "201": {
-            "description": "contact us  successfully"
+          "200": {
+            "description": "Successfully retrieved all contact records",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ContactUs"
+              }
+            }
           }
         }
       },
@@ -281,20 +276,15 @@
           "User"
         ],
        
-        "parameters": [
-          {
-            "in": "path",
-            "name": "url",
-            "schema": {
-              "$ref": "#/definitions/User"
-            },
-            "required": true,
-            "description": "User object"
-          }
-        ],
         "responses": {
-          "201": {
-            "description": "users got successfully"
+          "200": {
+            "description": "Successfully retrieved all users",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
           }
         }
       },
@@ -586,21 +576,15 @@
         "tags": [
           "LostDocument"
         ],
-        
-        "parameters": [
-          {
-            "in": "path",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/LostDocument"
-            },
-            "required": true,
-            "description": "User credentials"
-          }
-        ],
         "responses": {
           "200": {
-            "description": "Successful  got  lost documents"
+            "description": "Successfully retrieved all missing person",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/LostDocument"
+              }
+            }
           },
           "401": {
             "description": "Invalid credentials"
@@ -953,18 +937,15 @@
         "tags": [
           "MissingPerson"
         ],
-       
-        "parameters": [
-          {
-            "in": "path",
-            "name": "url",
-            "required": true,
-            "description": "User credentials"
-          }
-        ],
         "responses": {
           "200": {
-            "description": "details missing people returned."
+            "description": "Successfully retrieved all missing person",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MissingPerson"
+              }
+            }
           },
           "401": {
             "description": "Invalid credentials"
@@ -1283,17 +1264,16 @@
         "tags": [
           "FoundLostDocument"
         ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "url",
-            "required": true,
-            "description": "User credentials"
-          }
-        ],
+       
         "responses": {
           "200": {
-            "description": "details found documents returned."
+            "description": "Successfully retrieved all found documents",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FoundLostDocument"
+              }
+            }
           },
           "401": {
             "description": "Invalid credentials"
@@ -1637,28 +1617,28 @@
       }
     },
     "/foundMissingPeople": {
+    "get": {
       "summary": "Get all found missed people",
       "description": "Get all found missed person ",
       "tags": [
         "FoundMissingPerson"
       ],
-      "parameters": [
-        {
-          "in": "path",
-          "name": "url",
-          "required": true,
-          "description": "list of all missing people"
-        }
-      ],
       "responses": {
         "200": {
-          "description": " found missed people"
+          "description": "Successfully retrieved all found missing persons",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/FoundMissingPerson"
+            }
+          }
         },
         "401": {
           "description": "Invalid credentials"
         }
       }
     }
+  }
   },
   "definitions": {
     "Filter": {
@@ -1882,4 +1862,4 @@
       ]
     }
   }
-}
+  }

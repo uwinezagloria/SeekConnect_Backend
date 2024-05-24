@@ -7,7 +7,7 @@ const lostSchema=new mongoose.Schema({
     },
 DocumentType:{
 type:String,
-enum:["Drivers License","National Id Card","Health Insurance Card","Refugee Identity Document","Othe Form Of Identity"]
+enum:["Drivers License","National Id Card","Health Insurance Card","Refugee Identity Document","Other Form Of Identity"]
 },
     NameOnDocument:{
     type:String
