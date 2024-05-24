@@ -2,7 +2,7 @@ import asyncWrapper from "../middlewares/async.js";
 import customError from "../middlewares/customError.js";
 import foundDocumentModel from "../models/foundDocuments.models.js";
 import cloudinary from "../utils/cloudinary.js";
-
+import userModel from "../models/user.models.js";
 //post a found document
 export const postFoundDocument = asyncWrapper(async (req, res, next) => {
     try {

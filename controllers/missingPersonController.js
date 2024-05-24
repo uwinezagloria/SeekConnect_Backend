@@ -3,9 +3,11 @@ import asyncWrapper from "../middlewares/async.js";
 import missingPersonModel from "../models/missingPerson.models.js";
 import customError from "../middlewares/customError.js"
 import { validationResult } from "express-validator";
+import userModel from "../models/user.models.js";
 import cloudinary from "../utils/cloudinary.js";
 //POST A MISSING PERSON
 export const postMissingPerson = asyncWrapper(async (req, res, next) => {
+try{
 
     //validate
     const error = validationResult(req)
@@ -57,6 +59,10 @@ export const postMissingPerson = asyncWrapper(async (req, res, next) => {
         message: "missing person posted successfully",
         person: saveUser
     })
+}
+catch(error){
+    console.log(error.message)
+}
 
 })
 
