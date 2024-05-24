@@ -11,7 +11,7 @@ export const createLostDocument = asyncWrapper(async (req, res, next) => {
         return next(new customError("Bad Request", 403))
     }
     //check if userId provided is for the user in database
-    const user = await userModel.findById({ _id: req.body.userId })
+    const user = await userModel.findById({ _id: req.body.UserId })
     if (!user) {
         return next(new customError(" No user with id ${req.body.id}", 404))
     }

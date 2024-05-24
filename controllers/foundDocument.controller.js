@@ -7,7 +7,7 @@ import userModel from "../models/user.models.js";
 export const postFoundDocument = asyncWrapper(async (req, res, next) => {
     try {
          //check if userId provided is for the user in database
-     const user=await userModel.findById({_id:req.body.userId})
+     const user=await userModel.findById({_id:req.body.UserId})
      if(!user){
        return next(new customError(" No user with id ${req.body.id}",404))
       }
