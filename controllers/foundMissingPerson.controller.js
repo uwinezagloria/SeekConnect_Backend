@@ -7,7 +7,7 @@ import cloudinary from "../utils/cloudinary.js";
 export const PostFoundMissingPerson = asyncWrapper(async (req, res, next) => {
     try {
         //check if userId provided is for the user in database
-        const user = await userModel.findById({ _id: req.body.userId })
+        const user = await userModel.findById({ _id: req.body.UserId })
         if (!user) {
             return next(new customError(" No user with id ${req.body.id}", 404))
         }
