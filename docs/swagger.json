@@ -5,12 +5,9 @@
     "description": "API documentation for SeekConnect ",
     "version": "1.0.0"
   },
-  "host": "localhost:10000",
+  "host": "seekconnect-backend-1.onrender.com",
   "basePath": "",
-  "schemes": [
-    "https",
-    "http"
-  ],
+  "schemes": ["https", "http"],
   "securityDefinitions": {
     "BearerAuth": {
       "type": "apiKey",
@@ -24,9 +21,7 @@
       "post": {
         "summary": "Filter by category",
         "description": "Filter documents and persons by category.",
-        "tags": [
-          "Filter"
-        ],
+        "tags": ["Filter"],
         "parameters": [
           {
             "in": "body",
@@ -37,10 +32,7 @@
                 "category": {
                   "type": "string",
                   "description": "The category to filter by.",
-                  "enum": [
-                    "LostDocument",
-                    "MissingPerson"
-                  ]
+                  "enum": ["LostDocument", "MissingPerson"]
                 }
               }
             },
@@ -84,10 +76,8 @@
       "post": {
         "summary": "Search documents and persons",
         "description": "Search for documents and persons by name.",
-        "tags": [
-          "Search"
-        ],
-       
+        "tags": ["Search"],
+
         "parameters": [
           {
             "in": "body",
@@ -122,9 +112,7 @@
       "post": {
         "summary": "Add  a countact Us ",
         "description": "Add  a countact Us",
-        "tags": [
-          "ContactUs"
-        ],
+        "tags": ["ContactUs"],
         "parameters": [
           {
             "in": "body",
@@ -145,10 +133,8 @@
       "get": {
         "summary": "get  countact Us ",
         "description": "get all   countacted Us",
-        "tags": [
-          "ContactUs"
-        ],
-       
+        "tags": ["ContactUs"],
+
         "responses": {
           "200": {
             "description": "Successfully retrieved all contact records",
@@ -164,9 +150,7 @@
       "patch": {
         "summary": "Update  countact Us ",
         "description": "update   countacted Us",
-        "tags": [
-          "ContactUs"
-        ],
+        "tags": ["ContactUs"],
         "parameters": [
           {
             "in": "query",
@@ -196,9 +180,7 @@
       "delete": {
         "summary": "remove  countact Us ",
         "description": "remove   countacted Us",
-        "tags": [
-          "ContactUs"
-        ],
+        "tags": ["ContactUs"],
         "parameters": [
           {
             "in": "query",
@@ -221,10 +203,8 @@
       "get": {
         "summary": "get  a countact Us  by email",
         "description": "get   a countact Us for a provided email",
-        "tags": [
-          "ContactUs"
-        ],
-      
+        "tags": ["ContactUs"],
+
         "parameters": [
           {
             "in": "query",
@@ -247,9 +227,7 @@
       "post": {
         "summary": "Create account ",
         "description": "Create a new account on SeekConnect ",
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "parameters": [
           {
             "in": "body",
@@ -272,10 +250,8 @@
       "get": {
         "summary": "get all users who created account ",
         "description": "list of all users of SeekConnect ",
-        "tags": [
-          "User"
-        ],
-       
+        "tags": ["User"],
+
         "responses": {
           "200": {
             "description": "Successfully retrieved all users",
@@ -291,10 +267,8 @@
       "patch": {
         "summary": "update user account ",
         "description": "update user account ",
-        "tags": [
-          "User"
-        ],
-        
+        "tags": ["User"],
+
         "parameters": [
           {
             "in": "query",
@@ -326,10 +300,8 @@
       "get": {
         "summary": "get all users according to their role  ",
         "description": "list of all users of SeekConnect  classified according to their role",
-        "tags": [
-          "User"
-        ],
-       
+        "tags": ["User"],
+
         "parameters": [
           {
             "in": "query",
@@ -352,10 +324,8 @@
       "get": {
         "summary": "get a user by his/her id ",
         "description": "get one use according to his/her id ",
-        "tags": [
-          "User"
-        ],
-       
+        "tags": ["User"],
+
         "parameters": [
           {
             "in": "query",
@@ -376,10 +346,8 @@
       "delete": {
         "summary": "delete  user account  by his/her id",
         "description": "delete an account of the user  using id",
-        "tags": [
-          "User"
-        ],
-       
+        "tags": ["User"],
+
         "parameters": [
           {
             "in": "query",
@@ -402,9 +370,7 @@
       "post": {
         "summary": "verify account ",
         "description": "verify your  account on SeekConnect ",
-        "tags": [
-          "verification"
-        ],
+        "tags": ["verification"],
         "parameters": [
           {
             "in": "body",
@@ -427,9 +393,7 @@
       "post": {
         "summary": "Login user",
         "description": "Authenticate and login user",
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "parameters": [
           {
             "in": "body",
@@ -455,9 +419,7 @@
       "post": {
         "summary": "Reset Password",
         "description": " user reset new Password ",
-        "tags": [
-          "resetPassword"
-        ],
+        "tags": ["resetPassword"],
         "parameters": [
           {
             "in": "body",
@@ -483,10 +445,8 @@
       "post": {
         "summary": "Post A lost Document",
         "description": " post your lost document",
-        "tags": [
-          "LostDocument"
-        ],
-       
+        "tags": ["LostDocument"],
+
         "parameters": [
           {
             "in": "body",
@@ -510,10 +470,8 @@
       "patch": {
         "summary": "update A lost Document",
         "description": " update  lost document",
-        "tags": [
-          "LostDocument"
-        ],
-       
+        "tags": ["LostDocument"],
+
         "parameters": [
           {
             "in": "query",
@@ -546,10 +504,8 @@
       "delete": {
         "summary": "delete lost Document",
         "description": " delete   lost document",
-        "tags": [
-          "LostDocument"
-        ],
-       
+        "tags": ["LostDocument"],
+
         "parameters": [
           {
             "in": "query",
@@ -573,9 +529,7 @@
       "get": {
         "summary": "get lost Documents",
         "description": " get all  lost documents",
-        "tags": [
-          "LostDocument"
-        ],
+        "tags": ["LostDocument"],
         "responses": {
           "200": {
             "description": "Successfully retrieved all missing person",
@@ -596,10 +550,8 @@
       "post": {
         "summary": "Create a missing person",
         "description": "Submit details about a missing person.",
-        "tags": [
-          "MissingPerson"
-        ],
-       
+        "tags": ["MissingPerson"],
+
         "parameters": [
           {
             "name": "file",
@@ -737,10 +689,8 @@
       "patch": {
         "summary": "update a missing person",
         "description": "updating  missing person.",
-        "tags": [
-          "MissingPerson"
-        ],
-        
+        "tags": ["MissingPerson"],
+
         "parameters": [
           {
             "name": "id",
@@ -885,9 +835,7 @@
       "get": {
         "summary": "Get one missing person by his/her id",
         "description": "Get one missing person by his/her id.",
-        "tags": [
-          "MissingPerson"
-        ],
+        "tags": ["MissingPerson"],
         "parameters": [
           {
             "in": "query",
@@ -908,10 +856,8 @@
       "delete": {
         "summary": "Remove a missing person",
         "description": "Delete a specific missing person record.",
-        "tags": [
-          "MissingPerson"
-        ],
-        
+        "tags": ["MissingPerson"],
+
         "parameters": [
           {
             "in": "query",
@@ -934,9 +880,7 @@
       "get": {
         "summary": "Get all missing people",
         "description": "list of all missing people",
-        "tags": [
-          "MissingPerson"
-        ],
+        "tags": ["MissingPerson"],
         "responses": {
           "200": {
             "description": "Successfully retrieved all missing person",
@@ -957,10 +901,8 @@
       "post": {
         "summary": "post a found document ",
         "description": "Submit details about found document",
-        "tags": [
-          "FoundLostDocument"
-        ],
-        
+        "tags": ["FoundLostDocument"],
+
         "parameters": [
           {
             "name": "file",
@@ -1081,9 +1023,7 @@
       "get": {
         "summary": "Get  found document",
         "description": "get found document by id",
-        "tags": [
-          "FoundLostDocument"
-        ],
+        "tags": ["FoundLostDocument"],
         "parameters": [
           {
             "in": "query",
@@ -1104,10 +1044,8 @@
       "delete": {
         "summary": "delete found document",
         "description": "delete found document by id",
-        "tags": [
-          "FoundLostDocument"
-        ],
-       
+        "tags": ["FoundLostDocument"],
+
         "parameters": [
           {
             "in": "query",
@@ -1128,10 +1066,8 @@
       "patch": {
         "summary": "update a found document ",
         "description": "Submit details about found document",
-        "tags": [
-          "FoundLostDocument"
-        ],
-       
+        "tags": ["FoundLostDocument"],
+
         "parameters": [
           {
             "name": "id",
@@ -1261,10 +1197,8 @@
       "get": {
         "summary": "Get all found documents",
         "description": "list of all found document",
-        "tags": [
-          "FoundLostDocument"
-        ],
-       
+        "tags": ["FoundLostDocument"],
+
         "responses": {
           "200": {
             "description": "Successfully retrieved all found documents",
@@ -1285,10 +1219,8 @@
       "post": {
         "summary": "Create a missing person",
         "description": "Submit details about a found person.",
-        "tags": [
-          "FoundMissingPerson"
-        ],
-        
+        "tags": ["FoundMissingPerson"],
+
         "parameters": [
           {
             "name": "file",
@@ -1425,9 +1357,7 @@
       "get": {
         "summary": "Get one found missed person",
         "description": "Get one found missed person by his/her id",
-        "tags": [
-          "FoundMissingPerson"
-        ],
+        "tags": ["FoundMissingPerson"],
         "parameters": [
           {
             "in": "query",
@@ -1448,10 +1378,8 @@
       "delete": {
         "summary": "delete one found missed person",
         "description": "delete one found missed person by his/her id",
-        "tags": [
-          "FoundMissingPerson"
-        ],
-        
+        "tags": ["FoundMissingPerson"],
+
         "parameters": [
           {
             "in": "query",
@@ -1472,10 +1400,8 @@
       "patch": {
         "summary": "update a missing person by his/her id",
         "description": "update a missing person by his/her id",
-        "tags": [
-          "FoundMissingPerson"
-        ],
-        
+        "tags": ["FoundMissingPerson"],
+
         "parameters": [
           {
             "name": "id",
@@ -1617,28 +1543,26 @@
       }
     },
     "/foundMissingPeople": {
-    "get": {
-      "summary": "Get all found missed people",
-      "description": "Get all found missed person ",
-      "tags": [
-        "FoundMissingPerson"
-      ],
-      "responses": {
-        "200": {
-          "description": "Successfully retrieved all found missing persons",
-          "schema": {
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/FoundMissingPerson"
+      "get": {
+        "summary": "Get all found missed people",
+        "description": "Get all found missed person ",
+        "tags": ["FoundMissingPerson"],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved all found missing persons",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FoundMissingPerson"
+              }
             }
+          },
+          "401": {
+            "description": "Invalid credentials"
           }
-        },
-        "401": {
-          "description": "Invalid credentials"
         }
       }
     }
-  }
   },
   "definitions": {
     "Filter": {
@@ -1647,15 +1571,10 @@
         "category": {
           "type": "string",
           "description": "The category to filter by.",
-          "enum": [
-            "LostDocument",
-            "MissingPerson"
-          ]
+          "enum": ["LostDocument", "MissingPerson"]
         }
       },
-      "required": [
-        "category"
-      ]
+      "required": ["category"]
     },
     "Search": {
       "type": "object",
@@ -1666,9 +1585,7 @@
           "example": "John Doe"
         }
       },
-      "required": [
-        "name"
-      ]
+      "required": ["name"]
     },
     "User": {
       "type": "object",
@@ -1699,10 +1616,7 @@
           "default": false
         },
         "role": {
-          "enum": [
-            "admin",
-            "user"
-          ],
+          "enum": ["admin", "user"],
           "type": "string",
           "default": "user"
         }
@@ -1723,9 +1637,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "otp"
-      ]
+      "required": ["otp"]
     },
     "Login": {
       "type": "object",
@@ -1737,10 +1649,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "Email",
-        "Password"
-      ]
+      "required": ["Email", "Password"]
     },
     "ResetPassword": {
       "type": "object",
@@ -1755,11 +1664,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "Email",
-        "Password",
-        "ConfirmPassword"
-      ]
+      "required": ["Email", "Password", "ConfirmPassword"]
     },
     "LostDocument": {
       "type": "object",
@@ -1854,12 +1759,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "Name",
-        "Email",
-        "Tel",
-        "Message"
-      ]
+      "required": ["Name", "Email", "Tel", "Message"]
     }
   }
-  }
+}
