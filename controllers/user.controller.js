@@ -182,7 +182,7 @@ export const resertNewPassword = asyncWrapper(async (req, res, next) => {
 //update user credentials
 export const updateUser = asyncWrapper(async (req, res, next) => {
     try {
-        const update = await userModel.findByIdAndUpdate({ _id: req.query.id }, req.body, { new: true })
+        const update = await userModel.findByIdAndUpdate({_id:req.query.id}  , req.body, { new: true })
         if (!update) {
             return next(new customError("user not found", 404))
         }
@@ -253,10 +253,10 @@ export const deleteUser = asyncWrapper(async (req, res, next) => {
         }
         //delete all things create by this user
         //1.delete lostdocument if user has created it
-        const lostDocument = await lostDocumentModel.findOne({ userId: req.query.id })
-        const foundDocument = await foundDocumentModel.findOne({ userId: req.query.id })
-        const missingPerson = await missingPersonModel.findOne({ userId: req.quey.id })
-        const foundMissingPerson = await foundMissingPersonModel.findOne({ userId: req.query.id })
+        const lostDocument = await lostDocumentModel.findOne({ UserId: req.query.id })
+        const foundDocument = await foundDocumentModel.findOne({ UserId:req.query.id })
+        const missingPerson = await missingPersonModel.findOne({ UserId:req.quey.id })
+        const foundMissingPerson = await foundMissingPersonModel.findOne({ UserId:req.query.id })
         if (lostDocument) {
             await lostDocument.findByIdAndDelete({ _id: lostDocument._id })
         }
@@ -267,7 +267,7 @@ export const deleteUser = asyncWrapper(async (req, res, next) => {
             await missingPerson.findByIdAndDelete({ _id: missingPerson._id })
         }
         if (foundMissingPerson) {
-            await foundMissingPerson.findByIdAndDelete({ _id: foundMissingPerson._id })
+            await foundMissingPerson.findByIdAndDelete({ _id:foundMissingPerson._id })
         }
         res.status(200).json({
             message: "user account deleted successfully"
