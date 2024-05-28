@@ -1712,7 +1712,8 @@
           "type": "number"
         },
         "otpExpiration": {
-          "type": "string"
+          "type": "string",
+          "format": "date"
         },
         "otpVerified": {
           "type": "boolean",
