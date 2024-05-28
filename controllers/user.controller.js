@@ -247,32 +247,32 @@ export const getUserById = asyncWrapper(async (req, res, next) => {
 //delete user
 export const deleteUser = asyncWrapper(async (req, res, next) => {
     try {
-        const removeUser = await userModel.findByIdAndDelete({ _id: req.query.id })
-        if (!removeUser) {
-            return next(new customError(`No users with id ${req.query.id}`, 404))
-        }
         //delete all things create by this user
-        //1.delete lostdocument if user has created it
-        const lostDocument = await lostDocumentModel.findOne({ UserId: req.query.id })
-        const foundDocument = await foundDocumentModel.findOne({ UserId:req.query.id })
-        const missingPerson = await missingPersonModel.findOne({ UserId:req.quey.id })
-        const foundMissingPerson = await foundMissingPersonModel.findOne({ UserId:req.query.id })
+        const lostDocument = await lostDocumentModel.find({UserId:req.query.id })
+        const foundDocument = await foundDocumentModel.find({UserId:req.query.id })
+        const missingPerson = await missingPersonModel.find({UserId:req.query.id })
+         const foundMissingPerson = await foundMissingPersonModel.find({UserId:req.query.id })
         if (lostDocument) {
-            await lostDocument.findByIdAndDelete({ _id: lostDocument._id })
+             await lostDocumentModel.findByIdAndDelete(lostDocument._id)
+            
         }
         if (foundDocument) {
-            await foundDocument.findByIdAndDelete({ _id: foundDocument._id })
+            await foundDocumentModel.findByIdAndDelete(foundDocument._id)
         }
         if (missingPerson) {
-            await missingPerson.findByIdAndDelete({ _id: missingPerson._id })
+            await missingPersonModel.findByIdAndDelete(missingPerson._id)
         }
         if (foundMissingPerson) {
-            await foundMissingPerson.findByIdAndDelete({ _id:foundMissingPerson._id })
+            await foundMissingPersonModel.findByIdAndDelete(foundMissingPerson._id)
+            const removeUser=await userModel.findByIdAndDelete({_id:req.query.id})
+        if (!removeUser) {
+            return next(new customError(`No users with id ${req.query.id}`, 404))
         }
         res.status(200).json({
             message: "user account deleted successfully"
         })
     }
+}
     catch (error) {
         console.log(error.message)
         return res.status(500).json({ message: "error occur!try again" })
