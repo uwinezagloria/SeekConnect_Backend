@@ -29,7 +29,7 @@ router.route("/resetPassword").post(forgotPasswordValidation, resertNewPassword)
 router.route("/users").get( getAllUser)
 router.route("/users/role").get( getUserByRole)
 router.route("/user").get( getUserById)
-router.route("/users").patch( updateUser)
+router.route("/users").patch(updateUser)
 router.route("/user").delete( deleteUser)
 //LostDocument route
 router.route("/lost").post( lostDocumentValidation, createLostDocument)

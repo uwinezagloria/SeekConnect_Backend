@@ -182,7 +182,7 @@ export const resertNewPassword = asyncWrapper(async (req, res, next) => {
 //update user credentials
 export const updateUser = asyncWrapper(async (req, res, next) => {
     try {
-        const update = await userModel.findByIdAndUpdate({_id:req.query.id}  , req.body, { new: true })
+        const update = await userModel.findByIdAndUpdate(req.query.id  , req.body, { new: true })
         if (!update) {
             return next(new customError("user not found", 404))
         }
