@@ -10,10 +10,10 @@ export const createLostDocument = asyncWrapper(async (req, res, next) => {
     if (!error.isEmpty()) {
         return next(new customError("Bad Request", 403))
     }
-    //check if userId provided is for the user in database
-    const user = await userModel.findById({ _id: req.body.UserId })
+    //check if Email  provided is for the user in database
+    const user = await userModel.findOne({ Email: req.body.Email })
     if (!user) {
-        return next(new customError(" No user with id ${req.body.id}", 404))
+        return next(new customError(` No user with this Email ${req.body.Email},please first create an account`, 404))
     }
 
     //create lostDocument
@@ -32,6 +32,8 @@ export const getLostDocuments = asyncWrapper(async (req, res, next) => {
     })
 })
 //update lost documents
+//check if the reported lost document have found and send an email to the owner
+
 export const updateLostDocument = asyncWrapper(async (req, res, next) => {
     const update = await lostDocumentModel.findByIdAndUpdate({ _id: req.query.id }, req.body, { new: true })
     if (!update) {

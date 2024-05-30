@@ -1,9 +1,8 @@
 //models for FOUND lost product
 import mongoose from "mongoose"
 const foundSchema=new mongoose.Schema({
-    UserId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'SignUp'
+    Email:{
+      type:String
     },
 DocumentType:{
 type:String,

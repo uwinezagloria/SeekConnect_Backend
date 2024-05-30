@@ -5,15 +5,16 @@ import customError from "../middlewares/customError.js"
 import { validationResult } from "express-validator";
 import userModel from "../models/user.models.js";
 import cloudinary from "../utils/cloudinary.js";
+import { sendEmail } from "../utils/sendemail.js";
 //POST A MISSING PERSON
 export const postMissingPerson = asyncWrapper(async (req, res, next) => {
 try{
 
 
-    //check if userId provided is for the user in database
-    const user = await userModel.findById({ _id: req.body.UserId })
+    //check if Email provided is for the user in database
+    const user = await userModel.findOne({Email: req.body.Email })
     if (!user) {
-        return next(new customError(" No user with id ${req.body.id}", 404))
+        return next(new customError(` No user with this Email ${req.body.Email},please first create an account`, 404))
     }
     //create post for missing person
     const result = await cloudinary.uploader.upload(req.file.path, function (err, result) {
@@ -23,7 +24,7 @@ try{
         }
     })
     const newPerson = new missingPersonModel({
-        UserId: req.body.UserId,
+        Email: req.body.Email,
         FirstName: req.body.FirstName,
         LastName: req.body.LastName,
         Race: req.body.Race,
@@ -105,7 +106,16 @@ export const updateMissingPerson = asyncWrapper(async (req, res, next) => {
     if (req.body['LostPlace.Village']) {
         missingPerson.LostPlace.Village = req.body['LostPlace.Village']
     }
+//check if missingperson have been found and send an email to to someone who missed him/her
+//get user who missed this person
+const user=await userModel.findOne({Email:missingPerson.Email})
+if(req.body.Found){
+    if(req.body.Found==="true"){
+        console.log(user)
+        await sendEmail(user.Email,"YOUR MISSING PERSON IS FOUND",`we have found the person you reported ${missingPerson.FirstName} ${missingPerson.LastName} `)
+    }
 
+}
     //when there is other field to update
     const update = await missingPersonModel.findByIdAndUpdate({ _id: req.query.id }, req.body, { new: true })
     if (!update) {

@@ -7,9 +7,9 @@ import cloudinary from "../utils/cloudinary.js";
 export const PostFoundMissingPerson = asyncWrapper(async (req, res, next) => {
     try {
         //check if userId provided is for the user in database
-        const user = await userModel.findById({ _id: req.body.UserId })
+        const user = await userModel.findOne({ Email: req.body.Email })
         if (!user) {
-            return next(new customError(" No user with id ${req.body.id}", 404))
+            return next(new customError(`No user with id ${req.body.Email}`, 404))
         }
         //create post for  found missing person
         const result = await cloudinary.uploader.upload(req.file.path, function (err, result) {
@@ -19,7 +19,7 @@ export const PostFoundMissingPerson = asyncWrapper(async (req, res, next) => {
             }
         })
         const newFound = new foundMissingPersonModel({
-            UserId: req.body.UserId,
+            Email: req.body.Email,
             FirstName: req.body.FirstName,
             LastName: req.body.LastName,
             Race: req.body.Race,
@@ -62,7 +62,7 @@ export const getAllFoundMissingPeople = asyncWrapper(async (req, res, next) => {
         const getAll = await foundMissingPersonModel.find()
         res.status(200).json({
             message: "all found missed people",
-            missedPeaople: getAll
+            missedPeople: getAll
         })
     }
     catch (error) {
