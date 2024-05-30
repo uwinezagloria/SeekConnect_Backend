@@ -1,9 +1,9 @@
 //models for lost product
 import mongoose from "mongoose"
 const lostSchema=new mongoose.Schema({
-    UserId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"SignUp"
+    Email:{
+        type:String,
+       
     },
 DocumentType:{
 type:String,

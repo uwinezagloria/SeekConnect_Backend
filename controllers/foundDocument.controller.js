@@ -6,10 +6,10 @@ import userModel from "../models/user.models.js";
 //post a found document
 export const postFoundDocument = asyncWrapper(async (req, res, next) => {
     try {
-         //check if userId provided is for the user in database
-     const user=await userModel.findById({_id:req.body.UserId})
+         //check if Email provided is for the user in database
+     const user=await userModel.findByOne({Email:req.body.Email})
      if(!user){
-       return next(new customError(" No user with id ${req.body.id}",404))
+       return next(new customError(`No user with Email ${req.body.Email},please first register`,404))
       }
         const result = await cloudinary.uploader.upload(req.file.path, function (err, result) {
             if (err) {

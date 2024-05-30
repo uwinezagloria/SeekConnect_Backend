@@ -1,9 +1,8 @@
 //missing person model
 import mongoose from "mongoose"
 const personSchema = new mongoose.Schema({
-    UserId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "SignUp"
+    Email: {
+        type:String,
     },
     FirstName: {
         type: String

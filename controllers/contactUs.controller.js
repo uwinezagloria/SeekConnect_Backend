@@ -28,11 +28,17 @@ export const updateContactUs = asyncWrapper(async (req, res, next) => {
 })
 //delete a contact us
 export const deleteContactUs = asyncWrapper(async (req, res, next) => {
-    const remove = await contactUsModel.findByIdAndDelete({ _id: req.query.id })
-    if (!remove) {
-        return next(new customError("Not Found", 404))
+    try{
+        const remove = await contactUsModel.findByIdAndDelete({ _id: req.query.id })
+        if (!remove) {
+            return next(new customError("Not Found", 404))
+        }
+        res.status(200).json({ updated: update })
     }
-    res.status(200).json({ updated: update })
+    catch(error){
+        console.log(error.message)
+    }
+
 })
 //get contact us for one person
 export const getContact = asyncWrapper(async (req, res, next) => {

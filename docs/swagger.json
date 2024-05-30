@@ -561,9 +561,9 @@
             "type": "file"
           },
           {
-            "name": "UserId",
+            "name": "Email",
             "in": "formData",
-            "description": "ID of the user reporting the missing person",
+            "description": "Email of the user reporting the missing person",
             "required": true,
             "type": "string"
           },
@@ -695,7 +695,7 @@
           {
             "name": "id",
             "in": "query",
-            "description": "ID of the missing person record to update",
+            "description": "ID the missing person record to update",
             "required": true,
             "type": "string"
           },
@@ -707,9 +707,9 @@
             "type": "file"
           },
           {
-            "name": "UserId",
+            "name": "Email",
             "in": "formData",
-            "description": "ID of the user reporting the missing person",
+            "description": "Email the user reporting the missing person",
             "required": false,
             "type": "string"
           },
@@ -912,9 +912,9 @@
             "type": "file"
           },
           {
-            "name": "UserId",
+            "name": "Email",
             "in": "formData",
-            "description": "ID of the user reporting the missing person",
+            "description": "Email the user reporting the missing person",
             "required": true,
             "type": "string"
           },
@@ -1072,7 +1072,7 @@
           {
             "name": "id",
             "in": "query",
-            "description": "id of the found document you want to update",
+            "description": "Email of the found document you want to update",
             "required": true,
             "type": "string"
           },
@@ -1084,9 +1084,9 @@
             "type": "file"
           },
           {
-            "name": "UserId",
+            "name": "Email",
             "in": "formData",
-            "description": "ID of the user reporting the found document",
+            "description": "Email of  the user reporting the found document",
             "required": false,
             "type": "string"
           },
@@ -1230,9 +1230,9 @@
             "type": "file"
           },
           {
-            "name": "UserId",
+            "name": "Email",
             "in": "formData",
-            "description": "ID of the user reporting the found person",
+            "description": "Email of the user reporting the found person",
             "required": true,
             "type": "string"
           },
@@ -1417,9 +1417,9 @@
             "type": "file"
           },
           {
-            "name": "UserId",
+            "name": "Email",
             "in": "formData",
-            "description": "ID of the user reporting the found person",
+            "description": "Email of the user reporting the found person",
             "required": false,
             "type": "string"
           },
@@ -1670,7 +1670,7 @@
     "LostDocument": {
       "type": "object",
       "properties": {
-        "UserId": {
+        "Email": {
           "type": "string"
         },
         "DocumentType": {
@@ -1705,7 +1705,7 @@
         }
       },
       "required": [
-        "UserId",
+        "Email",
         "DocumentType",
         "NameOnDocument",
         " PlaceOfIssueOnDocument",
