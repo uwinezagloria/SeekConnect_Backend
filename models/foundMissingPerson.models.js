@@ -57,7 +57,7 @@ url:{
     Comment:{
         type:String
     },
-    ReturnedToOwner:{
+    returnedToOwner:{
         type:Boolean,
         default:false
     }

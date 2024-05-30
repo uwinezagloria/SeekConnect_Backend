@@ -3,6 +3,7 @@ import customError from "../middlewares/customError.js";
 import foundDocumentModel from "../models/foundDocuments.models.js";
 import cloudinary from "../utils/cloudinary.js";
 import userModel from "../models/user.models.js";
+import lostDocumentModel from "../models/lostDocument.models.js";
 //post a found document
 export const postFoundDocument = asyncWrapper(async (req, res, next) => {
     try {
@@ -72,9 +73,6 @@ export const getAllFoundDocument = asyncWrapper(async (req, res, next) => {
 //updating found Document
 export const updateFoundDocument = asyncWrapper(async (req, res, next) => {
     const foundDocument = await foundDocumentModel.findById({ _id: req.query.id })
-    if (!foundDocument) {
-        return next(new customError("Document not found", 404))
-    }
     //check if one want to update a photo
     if (req.file) {
         const result = cloudinary.uploader.upload(req.file.path, function (err, result) {
@@ -105,7 +103,17 @@ export const updateFoundDocument = asyncWrapper(async (req, res, next) => {
     if (req.body['FoundPlace.Village']) {
         foundDocument.FoundPlace.Village = req.body['FoundPlace.Village']
     }
-
+    //check if returned to the owner is true and delete the document in database
+// const  document=await lostDocumentModel.findById({_id:req.query.id})
+// if(!document){
+//     return next(new customError("Document not found",404))
+// }
+if(req.body.returnedToOwner){
+    if(req.body.returnedToOwner=="true"){
+        await lostDocumentModel.findByIdAndDelete({_id:req.query.id})
+        return res.status(200).json({message:"document is removed to the database"})
+    }
+}
     //when there is other field to update
     const update = await foundDocumentModel.findByIdAndUpdate({ _id: req.query.id }, req.body, { new: true })
     if (!update) {
@@ -119,20 +127,32 @@ export const updateFoundDocument = asyncWrapper(async (req, res, next) => {
 })
 //get found document by id
 export  const getFoundDocument=asyncWrapper(async(req,res,next)=>{
-const getFoundOne=await foundDocumentModel.findById({_id:req.query.id})
-if(!getFoundOne){
-    return next(new customError("document not found",404))
+    try{
+        const getFoundOne=await foundDocumentModel.findById({_id:req.query.id})
+        if(!getFoundOne){
+            return next(new customError("document not found",404))
+        }
+        res.status(200).json({
+            message:"get one found document by it's id",
+        documenta:getFoundOne
+        })
+    }
+catch(error){
+    console.log(error.message)
+    return next (new customError("failed to get found document ,please try again",500))
 }
-res.status(200).json({
-    message:"get one found document by it's id",
-documenta:getFoundOne
-})
 })
 //delete found document
 export const deleteFoundDocument=asyncWrapper(async(req,res,next)=>{
-    const document=await foundDocumentModel.findByIdAndDelete({_id:req.query.id})
-    if(!document){
-return next(new customError("document not found",404))
+    try{
+        const document=await foundDocumentModel.findByIdAndDelete({_id:req.query.id})
+        if(!document){
+    return next(new customError("document not found",404))
+        }
+        res.status(200).json({message:"document deleted successfully"})
     }
-    res.status(200).json({message:"document deleted successfully"})
+    catch(error){
+        console.log(error.message)
+        return res.status(500).json({message:"failed to delete,please trry again"})
+    }
 })
