@@ -3,6 +3,7 @@ import { validationResult } from 'express-validator'
 import customError from "../middlewares/customError.js";
 import lostDocumentModel from "../models/lostDocument.models.js";
 import userModel from "../models/user.models.js";
+import { sendEmail } from "../utils/sendemail.js";
 //controller for lost documents
 export const createLostDocument = asyncWrapper(async (req, res, next) => {
     //validate
@@ -35,6 +36,22 @@ export const getLostDocuments = asyncWrapper(async (req, res, next) => {
 //check if the reported lost document have found and send an email to the owner
 
 export const updateLostDocument = asyncWrapper(async (req, res, next) => {
+    try{
+        const lostDocument=await lostDocumentModel.findById(req.query.id)
+        if(!lostDocument){
+            return res.status(400).json({message:"document not found"})
+        }
+        //check if lost document have been found and send an email to to someone who lost it
+        //get user who lost this person
+        const user=await userModel.findOne({Email:lostDocument.Email})
+        console.log(user)
+
+if(req.body.Found){
+    if(req.body.Found===true){
+        await sendEmail(user.Email,"YOUR LOST DOCUMENT IS FOUND",`we have found your ${lostDocument.DocumentType} Document `)
+    }
+
+}
     const update = await lostDocumentModel.findByIdAndUpdate({ _id: req.query.id }, req.body, { new: true })
     if (!update) {
         return next(new customError("Document not found!try again", 404))
@@ -43,6 +60,10 @@ export const updateLostDocument = asyncWrapper(async (req, res, next) => {
         message: "document updated successfully",
         document: update
     })
+    }
+   catch(error){
+    console.log(error.message)
+   }
 })
 //delete lost document
 export const deleteLostDocument = asyncWrapper(async (req, res, next) => {

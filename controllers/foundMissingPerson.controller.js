@@ -140,11 +140,21 @@ export const updateFoundMissingPerson = asyncWrapper(async (req, res, next) => {
         if (req.body['FoundPlace.Village']) {
             foundPerson.FoundPlace.Village = req.body['FoundPlace.Village']
         }
-
+//check if the missingperson has returned to the owner and remove the person in database
+const missingPerson=await foundMissingPersonModel.findById({_id:req.query.id})
+if(!missingPerson){
+return next(new customError("missing person is not found",404))
+}
+if(req.body.returnedToOwner){
+    if(req.body.returnedToOwner==="true"){
+        await foundMissingPersonModel.findByIdAndDelete({_id:req.query.id})
+         return res.status(200).json({message:"missing person was removed to database"})
+    }
+}
         //when there is other field to update
         const update = await foundMissingPersonModel.findByIdAndUpdate({ _id: req.query.id }, req.body, { new: true })
         if (!update) {
-            return next(customError("document not found", 404))
+            return next(new customError("missing person not found", 404))
         }
         await foundPerson.save()
         res.status(200).json({
