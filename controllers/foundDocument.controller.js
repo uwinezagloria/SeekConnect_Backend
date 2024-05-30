@@ -7,7 +7,7 @@ import userModel from "../models/user.models.js";
 export const postFoundDocument = asyncWrapper(async (req, res, next) => {
     try {
          //check if Email provided is for the user in database
-     const user=await userModel.findByOne({Email:req.body.Email})
+     const user=await userModel.findOne({Email:req.body.Email})
      if(!user){
        return next(new customError(`No user with Email ${req.body.Email},please first register`,404))
       }
