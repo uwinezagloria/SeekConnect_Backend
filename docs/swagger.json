@@ -991,7 +991,7 @@
           {
             "name": "Email",
             "in": "formData",
-            "description": "Email the user reporting the missing person",
+            "description": "Email of the user reporting the found person",
             "required": true,
             "type": "string"
           },
@@ -1656,6 +1656,23 @@
         },
         "401": {
           "description": "Invalid credentials"
+        }
+      }
+    },
+    "/notification":{
+      "get": {
+        "summary": "notification for the admin when something is found ",
+        "description": "notification for admin when something is reported to that is lost is then found",
+        "tags": [
+          "Notification"
+        ],
+        "responses": {
+          "200": {
+            "description": "notifications "
+          },
+          "401": {
+            "description": "notifications  failed"
+          }
         }
       }
     }

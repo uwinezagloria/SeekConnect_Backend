@@ -19,6 +19,7 @@ import { deleteFoundDocument, getAllFoundDocument, getFoundDocument, postFoundDo
 import { PostFoundMissingPerson, deleteFoundMissingPerson, getAllFoundMissingPeople, getFoundMissingPerson, updateFoundMissingPerson } from "../controllers/foundMissingPerson.controller.js";
 import validateToken from "../middlewares/validateTokenHandler.js";
 import onlyAdmin from "../middlewares/checkAdmin.js";
+import { notification } from "../controllers/notification.controller.js";
 const router = express.Router()
 //signUp && signIn route
 router.route("/signUp").post(signUpValidation, signUp)
@@ -64,4 +65,6 @@ router.route("/foundMissingPerson").patch( upload.single('file'), updateFoundMis
 router.route("/foundMissingPerson").get(getFoundMissingPerson)
 router.route("/foundMissingPerson").delete(deleteFoundMissingPerson)
 router.route("/foundMissingPeople").get(getAllFoundMissingPeople)
+//notification
+router.route("/notification").get(notification)
 export default router 
