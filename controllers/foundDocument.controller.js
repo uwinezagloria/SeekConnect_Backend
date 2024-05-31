@@ -20,7 +20,7 @@ export const postFoundDocument = asyncWrapper(async (req, res, next) => {
         })
         //create foundDocument
         const newFound = new foundDocumentModel({
-            UserId: req.body.UserId,
+            Email: req.body.Email,
             DocumentType: req.body.DocumentType,
             NameOnDocument: req.body.NameOnDocument,
             PlaceOfIssueOnDocument: req.body.PlaceOfIssueOnDocument,
